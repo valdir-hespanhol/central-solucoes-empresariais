@@ -1,0 +1,19 @@
+# Arquivos temporários e backups
+*_raw.html
+*_extracted.txt
+*_backup.html
+*_backup.js
+*_backup.css
+
+# Arquivos duplicados com caracteres especiais
+construção.jpg
+Logo secundário (1).jpg
+
+# Sistema Operacional e IDEs
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.tmp
+*.bak

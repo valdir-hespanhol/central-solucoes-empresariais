@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "BPO Financeiro",
+    "slug": "bpo-financeiro"
+  },
+  {
+    "id": "2",
+    "name": "Saúde",
+    "slug": "saude"
+  },
+  {
+    "id": "3",
+    "name": "Construção Civil",
+    "slug": "construcao-civil"
+  },
+  {
+    "id": "4",
+    "name": "Tributário",
+    "slug": "tributario"
+  },
+  {
+    "id": "5",
+    "name": "Trabalhista",
+    "slug": "trabalhista"
+  },
+  {
+    "id": "6",
+    "name": "Gestão",
+    "slug": "gestao"
+  }
+]

@@ -1,0 +1,69 @@
+# Central Soluções Empresariais
+
+> Assessoria contábil consultiva, inteligência tributária e BPO financeiro estratégico com mais de 60 anos de credibilidade (fundada em 1964), sediada em Indaiatuba - SP e com atendimento em todo o Estado de São Paulo e Brasil.
+
+## Sobre a Empresa
+- **Razão Social / Nome Fantasia:** Central Soluções Empresariais (conhecida historicamente como Escritório Central de Contabilidade).
+- **Ano de Fundação:** 1964 (mais de 60 anos de atuação contínua no mercado corporativo).
+- **Sede Física:** Rua 13 de Maio, 546 - Centro, Indaiatuba - SP, CEP 13330-120.
+- **Canais de Atendimento:** 
+  - Telefones: (19) 3894-4657 | (19) 3834-4525
+  - WhatsApp Comercial: (19) 3894-4657
+  - E-mail: contato@escritoriocentral.org
+  - Horário: Segunda a Sexta, das 08h às 17h30.
+- **Website Oficial:** https://soucentral.com.br
+
+## Soluções Principais
+1. **Agyle BPO Financeiro:**
+   - Terceirização completa e estratégica da gestão financeira empresarial.
+   - Gestão de contas a pagar (agendamento bancário com alçada de aprovação exclusiva do cliente).
+   - Gestão de contas a receber e régua de cobrança ativa.
+   - Emissão de notas fiscais de produtos e serviços.
+   - Conciliação bancária diária e emissão de DRE Gerencial / Fluxo de Caixa para tomada de decisão.
+   - URL: https://soucentral.com.br/bpo-financeiro.html
+
+2. **Assessoria Contábil Consultiva:**
+   - Fechamentos contábeis mensais, balanços patrimoniais, DRE e relatórios gerenciais analíticos.
+   - Apoio em auditorias e adequação aos padrões IFRS / CPC.
+   - URL: https://soucentral.com.br/solucoes.html
+
+3. **Assessoria Tributária & Fiscal:**
+   - Planejamento tributário estratégico entre Simples Nacional, Lucro Presumido e Lucro Real.
+   - Recuperação e aproveitamento de créditos tributários legítimos.
+   - Apuração de tributos (IRPJ, CSLL, PIS, COFINS, ICMS, ISS) e cumprimento de obrigações acessórias (SPED, EFD, DCTF).
+   - URL: https://soucentral.com.br/solucoes.html
+
+4. **Gestão Trabalhista & Folha de Pagamento:**
+   - Processamento de folha de pagamento, pró-labore, admissões, rescisões e férias.
+   - Conformidade integral com o eSocial, medicina e segurança do trabalho (SST).
+   - URL: https://soucentral.com.br/solucoes.html
+
+5. **Abertura e Regularização Societária:**
+   - Constituição de novas empresas com emissão rápida de CNPJ via integração JUCESP/Receita Federal.
+   - Alterações contratuais, cisões, fusões e planejamento sucessório.
+   - URL: https://soucentral.com.br/solucoes.html
+
+## Especialidades Setoriais
+- **Contabilidade para Área da Saúde (Médicos, Clínicas e Consultórios):**
+  - Redução legal de carga tributária através do enquadramento no Fator R (anexo III do Simples Nacional).
+  - Equiparação hospitalar para clínicas médicas, reduzindo IRPJ de 32% para 8% e CSLL de 32% para 12% no Lucro Presumido.
+  - Livro Caixa (Carnê-Leão) versus PJ e gestão do DMED.
+- **Contabilidade para Construção Civil & Incorporação Imobiliária:**
+  - Adesão ao Regime Especial de Tributação (RET) com alíquota unificada de 4% sobre a receita.
+  - Abertura e gestão de CNO (Cadastro Nacional de Obras) e encerramento via SERO para emissão de CND.
+  - Contabilidade de SPE (Sociedade de Propósito Específico) e SCP.
+
+## Diferenciais Competitivos
+- Mais de 60 anos de credibilidade institucional com índice de retenção de clientes superior a 98%.
+- Equipe multidisciplinar com atendimento consultivo e sem robôs impessoais.
+- Plataforma digital com segurança em nuvem e suporte direto via WhatsApp e telefone.
+- Migração de contador facilitada e sem interrupção nas operações do cliente.
+
+## Links Canônicos
+- Página Inicial: https://soucentral.com.br/
+- Soluções: https://soucentral.com.br/solucoes.html
+- BPO Financeiro: https://soucentral.com.br/bpo-financeiro.html
+- Quem Somos: https://soucentral.com.br/quem-somos.html
+- Blog: https://soucentral.com.br/blog.html
+- Contato: https://soucentral.com.br/contato.html
+- Base de Conhecimento Completa para IA: https://soucentral.com.br/llms-full.txt

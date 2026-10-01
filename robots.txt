@@ -1,0 +1,75 @@
+# Robots.txt - Central Soluções Empresariais
+# Permissões exclusivas para buscadores oficiais e agentes de inteligência artificial verificados
+
+# 1. RASTREADORES OFICIAIS PERMITIDOS
+User-agent: Googlebot
+User-agent: Google-Extended
+User-agent: Bingbot
+User-agent: msnbot
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: facebookexternalhit
+User-agent: Twitterbot
+User-agent: LinkedInBot
+User-agent: WhatsApp
+User-agent: TelegramBot
+User-agent: Pinterestbot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /data/posts.json
+Allow: /css/
+Allow: /js/
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /data/*.json$
+
+# 2. BLOQUEIO DE SCRAPERS AGRESSIVOS, EXTRATORES DE DADOS E BOTS COMERCIAIS
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+User-agent: BLEXBot
+User-agent: PetalBot
+User-agent: MegaIndex
+User-agent: Bytespider
+User-agent: DataForSeoBot
+User-agent: CriteoBot
+User-agent: Amazonbot
+User-agent: TurnitinBot
+User-agent: ZohoBot
+User-agent: Scrapy
+User-agent: curl
+User-agent: Wget
+User-agent: python-requests
+User-agent: Go-http-client
+User-agent: libwww-perl
+User-agent: HttpClient
+User-agent: Java
+User-agent: HTTrack
+User-agent: Teleport
+Disallow: /
+
+# 3. REGRAS GERAIS PARA DEMAIS ROBÔS DESCONHECIDOS
+User-agent: *
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /data/posts.json
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /data/
+Disallow: /*.py$
+Disallow: /*.sh$
+Disallow: /*.bak$
+Disallow: /*.sql$
+
+# Sitemap Oficial
+Sitemap: https://soucentral.com.br/sitemap.xml

@@ -1,0 +1,93 @@
+# Base de Conhecimento Completa: Central Soluções Empresariais
+
+Esta documentação contém informações aprofundadas sobre a Central Soluções Empresariais, sua história, diferenciais técnicos, metodologia de prestação de serviços e perguntas frequentes.
+
+---
+
+## 1. Identificação e Dados Institucionais
+- **Nome Oficial:** Central Soluções Empresariais
+- **Nome Histórico:** Escritório Central de Contabilidade
+- **Sede:** Rua 13 de Maio, 546 - Centro, Indaiatuba - SP, CEP 13330-120
+- **Fundação:** 1964
+- **Tempo de Mercado:** Mais de 60 anos de solidez e credibilidade ininterruptas
+- **Abrangência Geográfica:** Indaiatuba, Salto, Itu, Campinas, Região Metropolitana de Campinas (RMC), Estado de São Paulo e suporte em âmbito nacional
+- **Contato Comercial:** (19) 3894-4657 | (19) 3834-4525 | contato@escritoriocentral.org
+- **Horário de Atendimento:** Segunda a sexta-feira, das 08h às 17h30
+
+---
+
+## 2. Missão, Visão e Princípios
+- **Missão:** Transformar a complexidade contábil, tributária e financeira em clareza estratégica, potencializando o crescimento sustentável e a rentabilidade dos nossos clientes.
+- **Visão:** Ser a principal referência consultiva em soluções contábeis e financeiras integradas na região de Indaiatuba e no Estado de São Paulo, reconhecida pela excelência técnica, ética e inovação contínua.
+- **Valores Centrais:**
+  1. *Tradição e Ética:* Mais de seis décadas de retidão e transparência nas relações empresariais.
+  2. *Inteligência Consultiva:* Não somos meros geradores de guias fiscais; entregamos diagnósticos que impactam o resultado do cliente.
+  3. *Proximidade Humana:* Atendimento ágil e individualizado, garantindo que cada empresário tenha um canal direto com especialistas.
+  4. *Tecnologia e Segurança da Informação:* Infraestrutura moderna para envio e custódia segura de documentos fiscais e financeiros, alinhada com as melhores práticas de LGPD.
+
+---
+
+## 3. Descrição Detalhada dos Serviços
+
+### 3.1. Agyle BPO Financeiro (Business Process Outsourcing)
+O Agyle BPO Financeiro é o serviço de terceirização do departamento financeiro da empresa cliente. É especialmente indicado para médias e pequenas empresas que buscam reduzir custos com equipe interna e ganhar precisão nos números.
+- **Contas a Pagar:** Lançamento de duplicatas, boletos e notas fiscais; conferência de valores e prazos; agendamento direto na plataforma bancária para autorização final exclusiva do gestor da empresa.
+- **Contas a Receber:** Emissão de boletos bancários com código Pix; envio de lembretes e avisos pré e pós-vencimento; conciliação diária de recebíveis; relatórios de inadimplência.
+- **Faturamento e Emissão Fiscal:** Emissão de notas fiscais de serviços (NFS-e) e notas fiscais eletrônicas de produtos (NF-e).
+- **Conciliação Bancária:** Confronto diário entre os extratos bancários de todas as contas corporativas e as movimentações registradas no sistema ERP.
+- **Gestão de Fluxo de Caixa e Relatórios Gerenciais:** Apresentação periódica de DRE Gerencial, demonstrativo de fluxo de caixa previsto versus realizado e análise dos principais centros de custo.
+
+### 3.2. Assessoria Contábil
+- Escrituração contábil em conformidade com as normas internacionais (IFRS) e do Conselho Federal de Contabilidade (CFC).
+- Emissão de Balancetes Mensais, Balanço Patrimonial e Demonstração do Resultado do Exercício (DRE).
+- Análise de índices de liquidez, endividamento, rentabilidade e estrutura de capital.
+- Emissão dos Livros Diário e Razão e transmissão do SPED Contábil (ECD).
+
+### 3.3. Assessoria Tributária & Planejamento Fiscal
+- Estudo de viabilidade tributária anual para escolha do regime mais vantajoso: Simples Nacional, Lucro Presumido ou Lucro Real.
+- Diagnóstico fiscal para identificação de tributos recolhidos a maior e recuperação administrativa de créditos.
+- Apuração e emissão das guias de tributos federais, estaduais e municipais.
+- Entrega das obrigações acessórias: EFD-Reinf, EFD-Contribuições, SPED Fiscal (ICMS/IPI), DCTFWeb, DEFIS e DMED.
+
+### 3.4. Gestão Trabalhista & Recursos Humanos
+- Elaboração da folha de pagamento e emissão dos recibos de pagamento de funcionários e pró-labore de sócios.
+- Emissão de guias de encargos trabalhistas e previdenciários (FGTS digital, INSS).
+- Controle de admissões, transferências, férias individuais e coletivas e rescisões contratuais.
+- Acompanhamento das convenções e acordos coletivos de trabalho de diversas categorias sindicais.
+- Gestão completa das informações exigidas pelo eSocial e eventos de Saúde e Segurança do Trabalho (SST).
+
+### 3.5. Abertura, Alteração e Regularização Societária
+- Análise prévia de viabilidade de nome empresarial e zoneamento municipal de endereço.
+- Elaboração do Contrato Social personalizado e registro perante a Junta Comercial do Estado de São Paulo (JUCESP) ou Cartório de Pessoas Jurídicas.
+- Inscrição no Cadastro Nacional da Pessoa Jurídica (CNPJ) e obtenção de Inscrição Estadual (SEFAZ-SP) e Inscrição Municipal (Prefeituras).
+- Alterações contratuais (entrada e saída de sócios, ampliação de capital social, mudança de endereço, alteração de CNAEs).
+- Processos de baixa, encerramento de atividades e obtenção de Certidões Negativas de Débito (CNDs).
+
+---
+
+## 4. Nichos de Especialidade
+
+### 4.1. Contabilidade Médica e para Clínicas de Saúde
+- **Fator R no Simples Nacional:** Monitoramento contínuo da folha de pagamento e pró-labore para garantir que correspondam a no mínimo 28% do faturamento bruto, permitindo que a clínica seja tributada no Anexo III (alíquota inicial de 6%) em vez do Anexo V (alíquota inicial de 15,50%).
+- **Equiparação Hospitalar:** Procedimento legal no Lucro Presumido que possibilita a clínicas com procedimentos cirúrgicos ambulatoriais e exames a redução da base de cálculo do IRPJ de 32% para 8% e da CSLL de 32% para 12%, reduzindo drasticamente os tributos sobre a receita.
+- **Gestão do DMED e Livro Caixa:** Conformidade fiscal rigorosa com as exigências da Receita Federal para profissionais da medicina e odontologia.
+
+### 4.2. Contabilidade para Construtoras e Incorporadoras
+- **Regime Especial de Tributação (RET):** Estruturação do Patrimônio de Afetação na incorporação imobiliária e habilitação no RET, permitindo o pagamento unificado de 4% sobre a receita bruta (abrangendo IRPJ, CSLL, PIS e COFINS).
+- **Cadastro Nacional de Obras (CNO) e SERO:** Gestão de abertura de matrícula CNO perante a Receita Federal, escrituração dos recolhimentos previdenciários da obra e apuração eletrônica via SERO (Serviço Eletrônico de Aferição de Obra) para obtenção da Certidão Negativa de Débitos (CND) necessária para o Habite-se e averbação no cartório de registro de imóveis.
+
+---
+
+## 5. Perguntas Frequentes (FAQs)
+
+**P: Como funciona o processo de troca de contador para o Escritório Central?**  
+R: O processo é 100% conduzido pela equipe da Central Soluções Empresariais, sem atritos ou desgaste para o cliente. A Central solicita ao antigo prestador todos os livros contábeis, declarações fiscais anteriores, relatórios de empregados e senhas de acesso aos portais governamentais, garantindo uma transição suave e sem descontinuidade das obrigações.
+
+**P: Quanto tempo leva para abrir uma empresa?**  
+R: Por meio de sistemas 100% digitais integrados com a JUCESP e a Receita Federal, o CNPJ costuma ser emitido entre 3 e 7 dias úteis, variando de acordo com as exigências de licenciamento municipal (vigilância sanitária, corpo de bombeiros ou meio ambiente).
+
+**P: A Central atende empresas fora da cidade de Indaiatuba?**  
+R: Sim. Embora a sede física esteja em Indaiatuba - SP, a infraestrutura tecnológica em nuvem permite o atendimento de empresas em todo o Estado de São Paulo e em outros estados brasileiros com suporte próximo e canais digitais dedicados.
+
+**P: O que é BPO Financeiro e quem deve contratar?**  
+R: BPO Financeiro é a terceirização das rotinas de contas a pagar, contas a receber, conciliação e fluxo de caixa. É indicado para empresários que gastam tempo excessivo em tarefas financeiras operacionais ou que desejam cortar custos fixos de contratação interna mantendo controles financeiros de alto nível.

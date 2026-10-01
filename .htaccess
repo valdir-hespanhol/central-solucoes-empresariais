@@ -1,0 +1,98 @@
+# =========================================================================
+# CENTRAL SOLUÇÕES EMPRESARIAIS - REGRAS DE SEGURANÇA E PROTEÇÃO CONTRA BOTS
+# Apache / LiteSpeed Web Server Configuration
+# =========================================================================
+
+# 1. PÁGINAS DE ERRO CUSTOMIZADAS
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+# 2. DESATIVAR NAVEGAÇÃO DE DIRETÓRIO (DIRECTORY LISTING)
+Options -Indexes -MultiViews
+
+# 3. RESTRIÇÃO DE MÉTODOS HTTP PERIGOSOS
+<LimitExcept GET POST HEAD OPTIONS>
+    Order Allow,Deny
+    Deny from all
+</LimitExcept>
+
+# 4. HEADERS DE SEGURANÇA (ENTERPRISE SECURITY HEADERS)
+<IfModule mod_headers.c>
+    # Previne sniffing de MIME type
+    Header always set X-Content-Type-Options "nosniff"
+    # Previne que o site seja embutido em iframes externos (anti-clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Ativa filtro XSS do navegador
+    Header always set X-XSS-Protection "1; mode=block"
+    # Política de Referrer estrita
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Restrição de permissões de hardware desnecessárias
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# 5. BLOQUEIO DE ARQUIVOS SENSÍVEIS E DE CÓDIGO FONTE
+<FilesMatch "(?i)\.(py|sh|sql|bak|log|ini|conf|env|git|htaccess|htpasswd|dist)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# 6. MOTOR DE REESCRITA & REGRAS DE FIREWALL WAF
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Bloquear tentativas de acessar pastas ocultas (.git, .env, etc.)
+    RewriteRule (^|/)\.(?!well-known) - [F,L]
+
+    # =========================================================================
+    # BLOQUEIO DE USER-AGENTS MALICIOSOS, SCRAPERS E SCANNERS AUTOMATIZADOS
+    # =========================================================================
+
+    # A. User-Agent vazio ou com traço (usado por scrapers amadores e bots de socket)
+    RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^-$ [OR]
+
+    # B. Ferramentas de Teste de Penetração, Exploit e Scanners de Vulnerabilidade
+    RewriteCond %{HTTP_USER_AGENT} (sqlmap|nikto|wpscan|masscan|zgrab|acunetix|nessus|censys|shodan|dirbuster|gobuster|fscan|arachni|havij|openvas|nmap|netsparker|qualys|burpcollaborator) [NC,OR]
+
+    # C. Scrapers agressivos, downloaders de site completo e extratores de dados
+    RewriteCond %{HTTP_USER_AGENT} (scrapy|httrack|teleport|webcopier|blackwidow|webstripper|offline\sexplorer|harvest|grabber|zeus|emailcollector|emailharvester|sitecheck|webauto|stripper|extractor) [NC,OR]
+
+    # D. Bibliotecas de automação / requisições programáticas não identificadas
+    RewriteCond %{HTTP_USER_AGENT} (python-requests|libwww-perl|aiohttp|Go-http-client|urllib|jakarta|winhttp|indy\slibrary|autohttp|httpclient|java\/|curl|wget) [NC,OR]
+
+    # E. Bots comerciais agressivos e scrapers de SEO de terceiros
+    RewriteCond %{HTTP_USER_AGENT} (ahrefsbot|semrushbot|dotbot|mj12bot|blexbot|petalbot|megaindex|bytespider|dataforseobot|criteobot|turnitinbot|zohobot) [NC]
+    RewriteRule .* - [F,L]
+
+    # =========================================================================
+    # PROTEÇÃO CONTRA VARREDURAS DE PROBES / CMS (WordPress, Joomla, PhpMyAdmin)
+    # =========================================================================
+    RewriteCond %{REQUEST_URI} (wp-login|wp-admin|xmlrpc\.php|wp-content|wp-includes|phpmyadmin|pma|setup\.php|eval-stdin|user\/register|\.aws) [NC]
+    RewriteRule .* - [F,L]
+
+    # =========================================================================
+    # PROTEÇÃO CONTRA INJEÇÃO DE CÓDIGO (SQLi, XSS, Path Traversal)
+    # =========================================================================
+
+    # Path Traversal (tentativas de subir diretórios /etc/passwd, etc.)
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\|etc/passwd|proc/self) [NC,OR]
+
+    # Cross-Site Scripting (XSS na Query String)
+    RewriteCond %{QUERY_STRING} (<script|%3Cscript|javascript:|base64_decode|document\.cookie|eval\() [NC,OR]
+
+    # SQL Injection básico na Query String
+    RewriteCond %{QUERY_STRING} (union.*select|select.*from|concat\(|load_file|benchmark\(|information_schema) [NC]
+    RewriteRule .* - [F,L]
+
+    # =========================================================================
+    # PROTEÇÃO DA PASTA API CONTRA REQUISIÇÕES EXTERNAS / CSRF
+    # =========================================================================
+    RewriteCond %{REQUEST_METHOD} POST
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?soucentral\.com\.br [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://localhost [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://127\.0\.0\.1 [NC]
+    RewriteRule .* - [F,L]
+
+</IfModule>

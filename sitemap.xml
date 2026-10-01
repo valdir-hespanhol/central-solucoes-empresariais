@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Página Inicial -->
+  <url>
+    <loc>https://soucentral.com.br/</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/logo-dark-transparent.png</image:loc>
+      <image:title>Central Soluções Empresariais - Assessoria Contábil e BPO Financeiro</image:title>
+    </image:image>
+  </url>
+
+  <!-- Soluções e Catálogo de Serviços -->
+  <url>
+    <loc>https://soucentral.com.br/solucoes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Hero%2004%20-%20Solucoes.jpg</image:loc>
+      <image:title>Soluções Contábeis, Tributárias e Especialidades</image:title>
+    </image:image>
+  </url>
+
+  <!-- BPO Financeiro -->
+  <url>
+    <loc>https://soucentral.com.br/bpo-financeiro.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Hero%2003%20-%20BPO.jpg</image:loc>
+      <image:title>Agyle BPO Financeiro - Gestão Financeira Terceirizada</image:title>
+    </image:image>
+  </url>
+
+  <!-- Quem Somos -->
+  <url>
+    <loc>https://soucentral.com.br/quem-somos.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Diretor.png</image:loc>
+      <image:title>Diretoria e História do Escritório Central</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog & Inteligência Empresarial -->
+  <url>
+    <loc>https://soucentral.com.br/blog.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Artigos do Blog -->
+  <url>
+    <loc>https://soucentral.com.br/artigo.html?slug=bpo-financeiro-lucratividade</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Hero%2003%20-%20BPO.jpg</image:loc>
+      <image:title>BPO Financeiro: Como a terceirização financeira impulsiona a lucratividade da sua empresa</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://soucentral.com.br/artigo.html?slug=planejamento-tributario-medicos-fator-r</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/medica.jpg</image:loc>
+      <image:title>Planejamento Tributário para Clínicas e Médicos PJ: Redução legal de impostos com o Fator R</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://soucentral.com.br/artigo.html?slug=construcao-civil-ret-cno-sero</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/construcao.jpg</image:loc>
+      <image:title>Construção Civil: Benefícios do RET e gestão de CNO/SERO para construtoras</image:title>
+    </image:image>
+  </url>
+
+  <!-- Contato & Atendimento -->
+  <url>
+    <loc>https://soucentral.com.br/contato.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Hero%2005%20-%20Contato.jpg</image:loc>
+      <image:title>Atendimento Central Soluções Empresariais em Indaiatuba</image:title>
+    </image:image>
+  </url>
+
+</urlset>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Painel Administrativo | Central Soluções Empresariais</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo-symbol.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Quill.js Rich Text WYSIWYG Editor Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+
+  <!-- Estilos Customizados do Site & Admin -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+  <!-- =========================================================================
+       1. TELA DE LOGIN DO ADMINISTRADOR
+       ========================================================================= -->
+  <div class="admin-login-wrap" id="adminLoginWrap">
+    <div class="admin-login-card">
+      <img src="logo-white-transparent.png" alt="Central Soluções Empresariais" class="admin-login-logo">
+      <h2>Acesso Administrativo</h2>
+      <p>Gerenciamento e publicação de artigos do Blog</p>
+
+      <form id="adminLoginForm">
+        <!-- Honeypot invisível anti-bot -->
+        <div style="display:none !important; visibility:hidden !important; position:absolute; left:-9999px;" aria-hidden="true">
+          <input type="text" name="admin_honey_trap" id="adminTrap" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div id="adminLoginAlert" style="display:none; background: rgba(220, 53, 69, 0.2); border: 1px solid rgba(220, 53, 69, 0.4); color: #ff858d; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; margin-bottom: 16px; text-align: left;"></div>
+
+        <div class="form-group" style="text-align: left; margin-bottom: 24px;">
+          <label for="adminPassword" style="color: #fff; font-size: 0.85rem; margin-bottom: 8px; display: block;">Senha de Acesso</label>
+          <input type="password" id="adminPassword" class="form-control" placeholder="Digite a senha (padrão: central2026)" required autofocus style="background: rgba(255,255,255,0.08); border-color: rgba(218,183,141,0.3); color: #fff;">
+        </div>
+
+        <button type="submit" id="adminLoginBtn" class="btn btn-primary" style="width: 100%; padding: 14px;">
+          <span>Entrar no Painel</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; font-size: 0.8rem; color: #888;">
+        <a href="index.html" style="color: var(--color-gold-400); text-decoration: none;">← Voltar para o Site</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. DASHBOARD ADMINISTRATIVO
+       ========================================================================= -->
+  <div class="admin-dashboard-wrap" id="adminDashboardWrap">
+    
+    <!-- Top Navigation Bar -->
+    <header class="admin-nav">
+      <div class="admin-nav-left">
+        <a href="admin.html" class="admin-nav-brand">
+          <img src="logo-symbol.png" alt="Logo" style="height: 32px;">
+          <span>Central Blog CMS</span>
+        </a>
+        <span class="admin-nav-badge">Painel do Editor</span>
+      </div>
+
+      <div class="admin-nav-right">
+        <a href="blog.html" target="_blank" class="btn btn-outline-gold btn-sm" style="color: #fff;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Visualizar Blog</span>
+        </a>
+        <button id="adminExportBtn" class="btn btn-secondary btn-sm" title="Baixar cópia de segurança de todos os posts">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Backup JSON</span>
+        </button>
+        <button id="adminLogoutBtn" class="btn btn-sm" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.15);">
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="admin-container">
+      
+      <!-- Linha de Estatísticas -->
+      <div class="admin-stats-row">
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div>
+            <div class="admin-stat-number" id="statTotalPosts">0</div>
+            <div class="admin-stat-label">Total de Artigos</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon" style="background: rgba(37, 211, 102, 0.12); color: #25D366;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="admin-stat-number" id="statPublishedPosts">0</div>
+            <div class="admin-stat-label">Artigos Publicados</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon" style="background: rgba(255, 193, 7, 0.12); color: #ffc107;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <div class="admin-stat-number" id="statDraftPosts">0</div>
+            <div class="admin-stat-label">Rascunhos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Ferramentas / Ações -->
+      <div class="admin-toolbar">
+        <div style="display: flex; gap: 12px; flex: 1; max-width: 600px; flex-wrap: wrap;">
+          <input type="text" id="adminSearchInput" class="form-control" placeholder="Buscar por título ou autor..." style="background: #181214; border-color: rgba(255,255,255,0.15); color: #fff; flex: 1; min-width: 240px;">
+          
+          <select id="adminFilterCategory" class="form-control" style="background: #181214; border-color: rgba(255,255,255,0.15); color: #fff; width: auto; min-width: 170px;">
+            <option value="all">Todas Categorias</option>
+            <option value="BPO Financeiro">BPO Financeiro</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Construção Civil">Construção Civil</option>
+            <option value="Tributário">Tributário</option>
+            <option value="Gestão">Gestão</option>
+          </select>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button id="adminManageCategoriesBtn" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Categorias</span>
+          </button>
+
+          <button id="adminNewPostBtn" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Novo Artigo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabela de Artigos -->
+      <div class="admin-table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Capa</th>
+              <th>Título & Slug</th>
+              <th>Categoria</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th style="width: 120px; text-align: center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="adminPostsTbody">
+            <!-- Linhas geradas via js/admin.js -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       3. MODAL DE CRIAÇÃO / EDIÇÃO DO ARTIGO COM WYSIWYG
+       ========================================================================= -->
+  <div class="admin-modal-overlay" id="adminPostModal">
+    <div class="admin-modal-card">
+      
+      <div class="admin-modal-header">
+        <h3 id="adminModalTitle">Criar Novo Artigo</h3>
+        <button class="admin-modal-close" id="adminModalClose">&times;</button>
+      </div>
+
+      <form id="adminPostForm">
+        
+        <div class="form-row" style="margin-bottom: 16px;">
+          <div class="form-group" style="flex: 2;">
+            <label style="color: #fff;">Título do Artigo *</label>
+            <input type="text" id="postTitleInput" class="form-control" placeholder="Ex: Como reduzir tributos na área médica com o Fator R" required style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label style="color: #fff;">URL Amigável (Slug) *</label>
+            <input type="text" id="postSlugInput" class="form-control" placeholder="slug-do-artigo" required style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom: 16px;">
+          <div class="form-group">
+            <label style="color: #fff;">Categoria *</label>
+            <select id="postCategorySelect" class="form-control" required style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+              <option value="BPO Financeiro">BPO Financeiro</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Construção Civil">Construção Civil</option>
+              <option value="Tributário">Tributário</option>
+              <option value="Trabalhista">Trabalhista</option>
+              <option value="Gestão">Gestão</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="color: #fff;">Status da Publicação</label>
+            <select id="postStatusSelect" class="form-control" style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+              <option value="published">Publicado (Visível no site)</option>
+              <option value="draft">Rascunho (Oculto)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom: 16px;">
+          <div class="form-group">
+            <label style="color: #fff;">Nome do Autor</label>
+            <input type="text" id="postAuthorInput" class="form-control" value="Escritório Central" style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+          </div>
+          <div class="form-group">
+            <label style="color: #fff;">Cargo / Especialidade do Autor</label>
+            <input type="text" id="postAuthorRoleInput" class="form-control" value="Consultoria Empresarial" style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+          </div>
+          <div class="form-group" style="max-width: 180px;">
+            <label style="color: #fff;">Tempo de Leitura</label>
+            <input type="text" id="postReadTimeInput" class="form-control" value="5 min de leitura" style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+          </div>
+        </div>
+
+        <!-- Mídia e Imagem de Capa -->
+        <div class="form-group" style="margin-bottom: 18px; padding: 18px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(218,183,141,0.3); border-radius: var(--radius-md);">
+          <label style="color: #fff; margin-bottom: 10px; display: block;">Imagem de Destaque (Capa)</label>
+          <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <img id="postImagePreview" src="Hero 01.jpg" alt="Prévia" style="width: 120px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-border-gold);">
+            <div style="flex: 1; min-width: 250px;">
+              <input type="text" id="postImageUrl" class="form-control" placeholder="Caminho ou URL (ex: Hero 01.jpg)" style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer; margin: 0;">
+                  <span>Subir Imagem do Computador</span>
+                  <input type="file" id="postImageUpload" accept="image/*" style="display: none;">
+                </label>
+                <span style="font-size: 0.8rem; color: #888;">JPG, PNG ou WebP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label style="color: #fff;">Resumo / Introdução (Aparece nos cards e no Google)</label>
+          <textarea id="postExcerptInput" class="form-control" rows="2" placeholder="Uma breve descrição com 2 ou 3 frases sobre o artigo..." style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;"></textarea>
+        </div>
+
+        <!-- Editor Completo WYSIWYG -->
+        <div class="form-group" style="margin-bottom: 24px;">
+          <label style="color: #fff; margin-bottom: 8px; display: block;">Conteúdo Completo do Artigo (Editor Visual estilo Word)</label>
+          <div id="quillEditor"></div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 14px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <button type="button" class="btn btn-sm" onclick="closePostModal()" style="background: transparent; color: #bbb; border: 1px solid rgba(255,255,255,0.2);">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Salvar e Publicar</span>
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       4. MODAL DE GERENCIAMENTO DE CATEGORIAS
+       ========================================================================= -->
+  <div class="admin-modal-overlay" id="adminCategoriesModal">
+    <div class="admin-modal-card" style="max-width: 620px;">
+      
+      <div class="admin-modal-header">
+        <h3>Gerenciar Categorias</h3>
+        <button class="admin-modal-close" id="adminCategoriesModalClose">&times;</button>
+      </div>
+
+      <div class="admin-cat-add-box">
+        <label style="color: #fff; font-size: 0.9rem; margin-bottom: 8px; display: block; font-weight: 600;">Nova Categoria</label>
+        <form id="adminAddCategoryForm" class="admin-cat-add-form">
+          <input type="text" id="newCategoryInput" class="form-control" placeholder="Nome da categoria (ex: Agronegócio, Startups...)" required style="background: #120e10; border-color: rgba(255,255,255,0.15); color: #fff;">
+          <button type="submit" class="btn btn-primary btn-sm" style="flex-shrink: 0; padding: 12px 20px;">
+            <span>Adicionar</span>
+          </button>
+        </form>
+      </div>
+
+      <div>
+        <label style="color: #aaa; font-size: 0.85rem; margin-bottom: 12px; display: block; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">
+          Categorias Ativas
+        </label>
+        <div class="admin-cat-list" id="adminCategoriesList">
+          <!-- Renderizado dinamicamente via js/admin.js -->
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <button type="button" class="btn btn-sm" id="adminCategoriesModalDone" style="background: var(--color-noir-900); color: #fff; border: 1px solid rgba(218,183,141,0.3);">
+          Concluir
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts: Quill.js WYSIWYG + Admin Controller -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
