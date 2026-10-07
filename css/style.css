@@ -393,14 +393,28 @@ h1, h2, h3, h4, h5, h6 {
   gap: 8px;
 }
 
+.top-bar-item a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  transition: var(--transition);
+}
+
 .top-bar-item svg {
   width: 14px;
   height: 14px;
   color: var(--color-gold-500);
+  flex-shrink: 0;
+  transition: var(--transition);
 }
 
 .top-bar-item a:hover {
   color: var(--color-gold-400);
+}
+
+.top-bar-item a.top-bar-whats:hover svg {
+  color: #25D366;
 }
 
 /* ==========================================================================
