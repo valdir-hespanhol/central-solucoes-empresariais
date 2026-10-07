@@ -1988,11 +1988,72 @@ select.form-control option {
 }
 
 /* ==========================================================================
-   SCROLL REVEAL ANIMATIONS (SAFE DISPLAY)
+   SCROLL REVEAL ANIMATIONS & GSAP PARALLAX ENHANCEMENTS
    ========================================================================== */
 [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
+}
+
+/* Otimização de GPU e profundidade 3D para Parallax & GSAP */
+.hero-glow,
+.about-image-decor,
+.about-image-frame,
+.about-image-frame img,
+.about-badge-floating,
+.bpo-image-frame,
+.bpo-image-frame img,
+.bpo-floating-badge {
+  will-change: transform;
+}
+
+/* Efeito de Reflexo Radial / Sheen Dinâmico em Cards */
+.quick-card,
+.diff-card,
+.solution-card,
+.specialty-card,
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.quick-card::after,
+.diff-card::after,
+.solution-card::after,
+.specialty-card::after,
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    550px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+    rgba(218, 183, 141, 0.12),
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 2;
+}
+
+.quick-card:hover::after,
+.diff-card:hover::after,
+.solution-card:hover::after,
+.specialty-card:hover::after,
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* Microinteração magnética fluida */
+.magnetic-btn {
+  will-change: transform;
+  display: inline-flex;
 }
 
 /* ==========================================================================
