@@ -366,11 +366,11 @@
           </p>
 
           <div class="solucoes-help-actions">
-            <a href="index.html#contato" class="btn btn-primary">
+            <a href="index.html#modal-trocar-contador" class="btn btn-primary" data-process-trigger="trocar-contador">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
               <span>Quero trocar de contador</span>
             </a>
-            <a href="index.html#contato" class="btn btn-secondary">
+            <a href="index.html#modal-abrir-empresa" class="btn btn-secondary" data-process-trigger="abrir-empresa">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
               <span>Quero abrir uma empresa</span>
             </a>
@@ -558,6 +558,172 @@
       </div>
     </div>
   </footer>
+
+  <!-- =========================================================================
+       MODAIS DE PASSO A PASSO (TROCAR DE CONTADOR & ABRIR EMPRESA)
+       ========================================================================= -->
+  <!-- Modal 1: Trocar de Contador -->
+  <div class="process-modal-overlay" id="modal-trocar-contador" role="dialog" aria-modal="true" aria-labelledby="trocarContadorTitle">
+    <div class="process-modal-card">
+      <div class="process-modal-header">
+        <div class="process-modal-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Portabilidade Sem Complicações</span>
+        </div>
+        <button class="process-modal-close" data-close-process aria-label="Fechar janela">&times;</button>
+        <h3 id="trocarContadorTitle">Passo a Passo para <span class="gradient-gold-text">Trocar de Contador</span></h3>
+        <p class="process-modal-subtitle">
+          Veja como é rápido e seguro migrar sua contabilidade para a Central Soluções Empresariais sem atritos com seu prestador anterior:
+        </p>
+      </div>
+
+      <div class="process-modal-body">
+        <div class="process-timeline">
+          <!-- Etapa 1 -->
+          <div class="process-step-item">
+            <div class="process-step-num">01</div>
+            <div class="process-step-content">
+              <h4>Reunião Inicial de Diagnóstico</h4>
+              <p>Agendamos uma reunião presencial ou por videoconferência para nos conhecermos e entender como podemos ajudá-lo. Nesse momento coletamos as informações necessárias para elaborar uma proposta personalizada.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 2 -->
+          <div class="process-step-item">
+            <div class="process-step-num">02</div>
+            <div class="process-step-content">
+              <h4>Apresentação de Proposta de Serviços</h4>
+              <p>Com base no cenário atual e características da sua empresa, apresentamos uma proposta transparente, detalhando todos os diferenciais da assessoria consultiva e os ganhos para seu negócio.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 3 -->
+          <div class="process-step-item highlight-step">
+            <div class="process-step-num">03</div>
+            <div class="process-step-content">
+              <h4>Portabilidade & Transição Documental</h4>
+              <p>Após a aprovação, <strong>deixe o resto com a nossa equipe</strong>! Entramos em contato com seu contador anterior e solicitamos livros, balancetes, certidões e histórico fiscal com total discrição e conformidade ética.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 4 -->
+          <div class="process-step-item">
+            <div class="process-step-num">04</div>
+            <div class="process-step-content">
+              <h4>Integração & Alinhamento de Fluxos</h4>
+              <p>Agendamos um alinhamento com sua equipe para desenhar a rotina operacional do dia a dia, apresentar nossos coordenadores setoriais e fornecer todos os canais exclusivos de atendimento.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 5 -->
+          <div class="process-step-item">
+            <div class="process-step-num">05</div>
+            <div class="process-step-content">
+              <h4>Atendimento Especializado & Alta Performance</h4>
+              <p>Pronto! Sua empresa decola com conformidade fiscal, relatórios gerenciais e uma equipe contábil focada estrategicamente na sua expansão de mercado.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-modal-footer">
+        <a href="contato.html" class="btn btn-primary" data-close-process>
+          <span>Quero Solicitar Proposta de Migração</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/551938344525?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20troca%20de%20contador%20para%20minha%20empresa." target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          <span>Tirar Dúvidas no WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Abrir Empresa -->
+  <div class="process-modal-overlay" id="modal-abrir-empresa" role="dialog" aria-modal="true" aria-labelledby="abrirEmpresaTitle">
+    <div class="process-modal-card">
+      <div class="process-modal-header">
+        <div class="process-modal-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span>Constituição Rápida & Estratégica</span>
+        </div>
+        <button class="process-modal-close" data-close-process aria-label="Fechar janela">&times;</button>
+        <h3 id="abrirEmpresaTitle">Passo a Passo para <span class="gradient-gold-text">Abrir Sua Empresa</span></h3>
+        <p class="process-modal-subtitle">
+          Comece seu negócio com quem possui expertise completa em todos os processos legais, societários e tributários:
+        </p>
+      </div>
+
+      <div class="process-modal-body">
+        <div class="process-timeline">
+          <!-- Etapa 1 -->
+          <div class="process-step-item">
+            <div class="process-step-num">01</div>
+            <div class="process-step-content">
+              <h4>Atendimento Inicial & Alinhamento</h4>
+              <p>Agendamos uma reunião presencial ou online para compreender seu modelo de negócio, atividades pretendidas, projeção de faturamento e estrutura societária ideal.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 2 -->
+          <div class="process-step-item">
+            <div class="process-step-num">02</div>
+            <div class="process-step-content">
+              <h4>Viabilidade de Endereço & Pesquisa de Nome</h4>
+              <p>Consultamos a Razão Social desejada junto à JUCESP e ao INPI para garantir exclusividade da marca, e validamos a viabilidade urbanística do endereço na Prefeitura.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 3 -->
+          <div class="process-step-item highlight-step">
+            <div class="process-step-num">03</div>
+            <div class="process-step-content">
+              <h4>Estudo & Planejamento Tributário Prévio</h4>
+              <p>Determinamos a melhor natureza jurídica (SLU, LTDA, S/A) e o regime tributário mais econômico (Simples Nacional, Lucro Presumido ou Lucro Real), minimizando a carga de impostos desde o primeiro mês.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 4 -->
+          <div class="process-step-item">
+            <div class="process-step-num">04</div>
+            <div class="process-step-content">
+              <h4>Elaboração do Contrato Social & Registros</h4>
+              <p>Redigimos cláusulas protetivas personalizadas no Contrato Social, efetuamos o registro nos órgãos competentes e emitimos o CNPJ, Inscrição Estadual e Inscrição Municipal.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 5 -->
+          <div class="process-step-item">
+            <div class="process-step-num">05</div>
+            <div class="process-step-content">
+              <h4>Integração & Treinamento Operacional</h4>
+              <p>Reunimos você com nossos especialistas setoriais para ensinar a emissão de notas fiscais, parametrização bancária, rotinas trabalhistas e canais de suporte.</p>
+            </div>
+          </div>
+
+          <!-- Etapa 6 -->
+          <div class="process-step-item">
+            <div class="process-step-num">06</div>
+            <div class="process-step-content">
+              <h4>Atendimento Especializado Contínuo</h4>
+              <p>Sua empresa aberta com segurança máxima e pronta para operar, enquanto cuidamos da contabilidade para você focar 100% nas vendas e na gestão.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-modal-footer">
+        <a href="contato.html" class="btn btn-primary" data-close-process>
+          <span>Iniciar Abertura da Minha Empresa</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/551938344525?text=Ol%C3%A1%2C%20quero%20abrir%20minha%20empresa%20e%20gostaria%20de%20orienta%C3%A7%C3%B5es%20iniciais." target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          <span>Falar no WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- WhatsApp Flutuante -->
   <a href="https://wa.me/551938944657?text=Ol%C3%A1!%20Gostaria%20de%20conversar%20com%20a%20Central%20Solu%C3%A7%C3%B5es%20Empresariais." class="whatsapp-float" id="whatsappFloatBtn" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">

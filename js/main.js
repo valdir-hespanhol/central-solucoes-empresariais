@@ -550,5 +550,101 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Inicializa o sistema de cookies
   initCookieConsent();
+
+  // =========================================================================
+  // 17. MODAIS INTERATIVOS DE PASSO A PASSO (TROCAR CONTADOR & ABRIR EMPRESA)
+  // =========================================================================
+  function initProcessModals() {
+    const overlays = document.querySelectorAll('.process-modal-overlay');
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modal) {
+      if (!modal) return;
+      modal.classList.remove('open');
+      const anyOpen = document.querySelector('.process-modal-overlay.open');
+      if (!anyOpen) {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeAllModals() {
+      overlays.forEach(m => closeModal(m));
+    }
+
+    // Gatilhos de abertura com atributo data-process-trigger
+    document.querySelectorAll('[data-process-trigger]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const triggerType = btn.getAttribute('data-process-trigger');
+        if (triggerType === 'trocar-contador') {
+          openModal('modal-trocar-contador');
+        } else if (triggerType === 'abrir-empresa') {
+          openModal('modal-abrir-empresa');
+        }
+      });
+    });
+
+    // Fechar ao clicar no botão de fechar ou no overlay transparente
+    overlays.forEach(modal => {
+      modal.querySelectorAll('[data-close-process]').forEach(closeBtn => {
+        closeBtn.addEventListener('click', (e) => {
+          const targetService = closeBtn.getAttribute('data-target-service');
+          closeModal(modal);
+
+          // Se tiver serviço alvo para pré-selecionar no formulário de contato
+          if (targetService) {
+            const formSelect = document.getElementById('formServico');
+            if (formSelect) {
+              for (let i = 0; i < formSelect.options.length; i++) {
+                if (formSelect.options[i].value === targetService) {
+                  formSelect.selectedIndex = i;
+                  break;
+                }
+              }
+            }
+            const contatoSection = document.getElementById('contato');
+            if (contatoSection) {
+              contatoSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    // Fechar com a tecla ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAllModals();
+      }
+    });
+
+    // Abrir automaticamente caso a URL já traga a hash (#modal-trocar-contador ou #modal-abrir-empresa)
+    if (window.location.hash === '#modal-trocar-contador') {
+      openModal('modal-trocar-contador');
+    } else if (window.location.hash === '#modal-abrir-empresa') {
+      openModal('modal-abrir-empresa');
+    }
+
+    // Expor na janela global
+    window.CentralProcessModal = {
+      open: openModal,
+      close: closeModal,
+      closeAll: closeAllModals
+    };
+  }
+
+  initProcessModals();
 });
 
