@@ -1240,15 +1240,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .specialties-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
 
 .specialty-card {
   background: var(--color-surface-light);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-xl);
-  padding: 42px 36px;
+  padding: 38px 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1276,13 +1276,13 @@ h1, h2, h3, h4, h5, h6 {
 .specialty-header {
   display: flex;
   align-items: center;
-  gap: 18px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
 .specialty-icon {
-  width: 58px;
-  height: 58px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-md);
   background: var(--color-noir-900);
   color: var(--color-gold-400);
@@ -1293,43 +1293,57 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .specialty-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 
 .specialty-header h3 {
-  font-size: 1.45rem;
+  font-size: 1.25rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-noir-900);
+  line-height: 1.25;
 }
 
 .specialty-tag {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-gold-600);
+  margin-bottom: 4px;
 }
 
-.specialty-card p {
+.specialty-highlight {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--color-gold-600);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.specialty-card p,
+.specialty-desc {
   color: var(--color-text-muted);
-  font-size: 1rem;
-  line-height: 1.65;
-  margin-bottom: 24px;
+  font-size: 0.925rem;
+  line-height: 1.6;
+  margin-bottom: 22px;
 }
 
 .specialty-tags-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 
 .specialty-pill {
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
-  font-size: 0.8125rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-dark);
 }
@@ -1859,6 +1873,9 @@ select.form-control option {
   }
   .hero-section {
     padding: 125px 0 60px;
+  }
+  .specialties-grid {
+    grid-template-columns: 1fr;
   }
 }
 
