@@ -457,14 +457,14 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 82px;
+  height: 96px;
   gap: 24px;
   flex-wrap: nowrap;
   transition: height 0.35s ease;
 }
 
 .main-header.scrolled .navbar-inner {
-  height: 70px;
+  height: 76px;
 }
 
 .brand-logo {
@@ -475,7 +475,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .brand-logo img,
 .brand-logo .header-logo-img {
-  height: 48px;
+  height: 70px;
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -485,7 +485,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-header.scrolled .brand-logo img,
 .main-header.scrolled .brand-logo .header-logo-img {
-  height: 42px;
+  height: 54px;
 }
 
 .nav-menu {
@@ -1795,11 +1795,22 @@ select.form-control option {
     display: none;
   }
   .navbar-inner {
-    height: 70px;
+    height: 76px;
+  }
+  .brand-logo img,
+  .brand-logo .header-logo-img {
+    height: 56px;
+  }
+  .main-header.scrolled .navbar-inner {
+    height: 68px;
+  }
+  .main-header.scrolled .brand-logo img,
+  .main-header.scrolled .brand-logo .header-logo-img {
+    height: 48px;
   }
   .nav-menu {
     position: fixed;
-    top: 70px;
+    top: 76px;
     left: 0;
     width: 100%;
     background: rgba(18, 12, 14, 0.97);
