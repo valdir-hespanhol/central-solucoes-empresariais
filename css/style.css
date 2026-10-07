@@ -1999,6 +1999,7 @@ select.form-control option {
   display: flex;
   align-items: center;
   gap: 12px;
+  max-width: 330px;
   z-index: 4;
   animation: float-slow 4.5s ease-in-out infinite alternate;
 }
@@ -2037,16 +2038,18 @@ select.form-control option {
 }
 
 .bpo-badge-title {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--color-white);
-  line-height: 1.2;
+  line-height: 1.25;
+  margin-bottom: 2px;
 }
 
 .bpo-badge-sub {
   font-size: 0.775rem;
   color: var(--color-gold-400);
   font-weight: 500;
+  line-height: 1.35;
 }
 
 /* ==========================================================================
