@@ -793,9 +793,9 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-dark);
-  border: 1px solid var(--color-border-light);
-  background: var(--color-noir-900);
+  box-shadow: 0 24px 50px -12px rgba(12, 8, 10, 0.28), 0 0 35px rgba(218, 183, 141, 0.15);
+  border: 1px solid rgba(218, 183, 141, 0.28);
+  background: radial-gradient(circle at 50% 32%, #382B22 0%, #1E1617 52%, #0E090B 100%);
 }
 
 .about-image-frame img {
