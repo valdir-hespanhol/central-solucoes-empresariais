@@ -104,4 +104,28 @@
     </image:image>
   </url>
 
+  <!-- Trocar de Contador -->
+  <url>
+    <loc>https://soucentral.com.br/trocar-de-contador.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Hero%2001.jpg</image:loc>
+      <image:title>Portabilidade e Troca de Contador Sem Complicações</image:title>
+    </image:image>
+  </url>
+
+  <!-- Abrir Empresa -->
+  <url>
+    <loc>https://soucentral.com.br/abrir-empresa.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://soucentral.com.br/Hero%2001.jpg</image:loc>
+      <image:title>Abertura de Empresa e Assessoria Societária em Indaiatuba</image:title>
+    </image:image>
+  </url>
+
 </urlset>
