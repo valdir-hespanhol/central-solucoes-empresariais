@@ -1098,12 +1098,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .solution-card h3 {
   font-size: 1.35rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-noir-900);
+  margin-bottom: 8px;
+}
+
+.solution-card .solution-headline {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gold-600);
+  line-height: 1.45;
   margin-bottom: 12px;
 }
 
-.solution-card p {
+.solution-card p,
+.solution-card .solution-desc {
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: 0.925rem;
   line-height: 1.6;
   margin-bottom: 22px;
 }
