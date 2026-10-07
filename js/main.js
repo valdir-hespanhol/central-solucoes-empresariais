@@ -119,9 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Smooth Counter Animation for Stats (Hero and About)
   const animateCounter = (counter) => {
-    const target = +counter.getAttribute('data-target');
+    const rawTarget = counter.getAttribute('data-target');
+    const target = parseInt(rawTarget.replace(/\D/g, ''), 10) || 0;
     const duration = 1600;
     const startTime = performance.now();
+
+    const formatNumber = (num) => {
+      return num >= 1000 ? num.toLocaleString('pt-BR') : num.toString();
+    };
 
     const updateCount = (currentTime) => {
       const elapsed = currentTime - startTime;
@@ -129,12 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(easeOut * target);
 
-      counter.textContent = current;
+      counter.textContent = formatNumber(current);
 
       if (progress < 1) {
         requestAnimationFrame(updateCount);
       } else {
-        counter.textContent = target;
+        counter.textContent = formatNumber(target);
       }
     };
 
