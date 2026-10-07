@@ -590,6 +590,29 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Ação ao clicar em botões que fecham o modal ou selecionam serviço direto
+    function handleServiceSelection(targetService) {
+      if (!targetService) return;
+      const formSelect = document.getElementById('formServico');
+      if (formSelect) {
+        for (let i = 0; i < formSelect.options.length; i++) {
+          if (formSelect.options[i].value === targetService) {
+            formSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      const contatoSection = document.getElementById('contato');
+      if (contatoSection) {
+        contatoSection.scrollIntoView({ behavior: 'smooth' });
+        // Focar com suavidade no formulário após a rolagem
+        setTimeout(() => {
+          const nomeInput = document.getElementById('formNome');
+          if (nomeInput) nomeInput.focus();
+        }, 600);
+      }
+    }
+
     // Fechar ao clicar no botão de fechar ou no overlay transparente
     overlays.forEach(modal => {
       modal.querySelectorAll('[data-close-process]').forEach(closeBtn => {
@@ -597,21 +620,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const targetService = closeBtn.getAttribute('data-target-service');
           closeModal(modal);
 
-          // Se tiver serviço alvo para pré-selecionar no formulário de contato
           if (targetService) {
-            const formSelect = document.getElementById('formServico');
-            if (formSelect) {
-              for (let i = 0; i < formSelect.options.length; i++) {
-                if (formSelect.options[i].value === targetService) {
-                  formSelect.selectedIndex = i;
-                  break;
-                }
-              }
-            }
-            const contatoSection = document.getElementById('contato');
-            if (contatoSection) {
-              contatoSection.scrollIntoView({ behavior: 'smooth' });
-            }
+            e.preventDefault();
+            handleServiceSelection(targetService);
           }
         });
       });
@@ -619,6 +630,17 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
           closeModal(modal);
+        }
+      });
+    });
+
+    // Botões nas seções que selecionam o serviço e rolam para o formulário
+    document.querySelectorAll('[data-select-service]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const service = btn.getAttribute('data-select-service');
+        if (service) {
+          e.preventDefault();
+          handleServiceSelection(service);
         }
       });
     });
@@ -641,7 +663,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.CentralProcessModal = {
       open: openModal,
       close: closeModal,
-      closeAll: closeAllModals
+      closeAll: closeAllModals,
+      selectServiceAndScroll: handleServiceSelection
     };
   }
 
