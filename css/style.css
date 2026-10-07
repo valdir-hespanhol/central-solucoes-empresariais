@@ -2057,6 +2057,106 @@ select.form-control option {
 }
 
 /* ==========================================================================
+   EFEITOS DE RIQUEZA VISUAL PREMIUM (PARTÍCULAS, SHIMMER & CURSOR AURA)
+   ========================================================================== */
+
+/* Canvas de Partículas Douradas Flutuantes (Hero) */
+.hero-particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+/* Brilho Metálico Contínuo / Foil Shimmer nos Títulos Dourados */
+@keyframes goldShimmerSweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.hero-title .gradient-gold-text,
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    #DAB78D 0%,
+    #FFF6E5 32%,
+    #DAB78D 58%,
+    #B58A57 100%
+  ) !important;
+  background-size: 240% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: goldShimmerSweep 7.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Aura Dourada Interativa no Cursor (Hero e Seções Escuras) */
+.hero-cursor-aura {
+  position: absolute;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(218, 183, 141, 0.16) 0%, rgba(218, 183, 141, 0.04) 45%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  will-change: transform, left, top;
+  mix-blend-mode: screen;
+  transition: opacity 0.5s ease;
+}
+
+/* Glow e Borda Lúmina nos Cards ao Passar o Mouse */
+.quick-card:hover,
+.diff-card:hover,
+.solution-card:hover,
+.specialty-card:hover {
+  border-color: rgba(218, 183, 141, 0.45) !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.08), 0 0 26px -4px rgba(218, 183, 141, 0.18) !important;
+}
+
+/* Halo Dourado Suave nas Estatísticas */
+.stat-item {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-4px);
+}
+
+.stat-item .stat-number {
+  text-shadow: 0 0 20px rgba(218, 183, 141, 0.28);
+}
+
+/* Configuração do Lenis Smooth Scrolling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ==========================================================================
    FAIXA DE SEGMENTOS INFINITA (MARQUEE / TICKER)
    ========================================================================== */
 .marquee-section {

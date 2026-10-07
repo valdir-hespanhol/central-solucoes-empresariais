@@ -1,13 +1,19 @@
 /**
- * CENTRAL SOLUÇÕES EMPRESARIAIS - GSAP & PARALLAX ENGINE
- * Efeitos visuais premium: timeline de entrada, parallax em múltiplos planos,
- * revelação com ScrollTrigger, tilt 3D suave, botões magnéticos e microinterações.
+ * CENTRAL SOLUÇÕES EMPRESARIAIS - ULTRA-PREMIUM GSAP, LENIS & PARALLAX ENGINE
+ * Efeitos visuais de alto padrão:
+ * - Rolagem suave inercial (Lenis) sincronizada com GSAP ScrollTrigger
+ * - Canvas de partículas / poeira dourada flutuante (ambient golden dust)
+ * - Aura luminosa interativa que segue o cursor nas seções escuras
+ * - Parallax em múltiplos planos (decor, foto CEO, dashboard BPO, badges 3D)
+ * - Tilt 3D com reflexo radial de lente (lens sheen) em cards
+ * - Efeito magnético de alta precisão em botões de ação e WhatsApp
+ * - Ticker com aceleração reativa à velocidade de scroll
  */
 
 (function () {
   'use strict';
 
-  // Verifica disponibilidade do GSAP
+  // Verificação de segurança para GSAP
   if (typeof window.gsap === 'undefined') {
     console.warn('[Central Animations] GSAP não carregado. Efeitos avançados desativados com segurança.');
     return;
@@ -23,14 +29,238 @@
   // Respeita acessibilidade de movimento reduzido
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
-    console.info('[Central Animations] Modo de movimento reduzido ativo pelo sistema do usuário.');
+    console.info('[Central Animations] Modo de movimento reduzido ativo pelo sistema.');
     return;
   }
 
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 992;
 
   /* ==========================================================================
-     1. TIMELINE DE ENTRADA HERO
+     1. LENIS SMOOTH SCROLL (ROLAGEM SUAVE INERCIAL CINEMATOGRÁFICA)
+     ========================================================================== */
+  let lenisInstance = null;
+
+  function initLenisSmoothScroll() {
+    if (typeof window.Lenis === 'undefined' || isTouchDevice) return;
+
+    try {
+      lenisInstance = new window.Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.5,
+        infinite: false
+      });
+
+      // Sincroniza Lenis com o ScrollTrigger do GSAP
+      lenisInstance.on('scroll', ScrollTrigger ? ScrollTrigger.update : () => {});
+
+      gsap.ticker.add((time) => {
+        lenisInstance.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+
+      // Suporte para links internos (âncoras suaves)
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+          const targetId = anchor.getAttribute('href');
+          if (targetId && targetId !== '#' && targetId.length > 1) {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              lenisInstance.scrollTo(targetEl, { offset: -90, duration: 1.2 });
+            }
+          }
+        });
+      });
+    } catch (err) {
+      console.warn('[Central Animations] Lenis init skipped:', err);
+    }
+  }
+
+  /* ==========================================================================
+     2. PARTICULAS DOURADAS FLUTUANTES (AMBIENT GOLDEN DUST)
+     ========================================================================== */
+  function initHeroParticles() {
+    const hero = document.querySelector('.hero-section');
+    if (!hero) return;
+
+    let canvas = hero.querySelector('.hero-particles-canvas');
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.className = 'hero-particles-canvas';
+      hero.insertBefore(canvas, hero.firstChild);
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let animationFrameId = null;
+    let isVisible = true;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const PARTICLE_COUNT = isTouchDevice ? 18 : 34;
+
+    function resize() {
+      width = canvas.width = hero.offsetWidth;
+      height = canvas.height = hero.offsetHeight;
+    }
+
+    function createParticle() {
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.8 + 0.8,
+        baseAlpha: Math.random() * 0.45 + 0.2,
+        alpha: 0,
+        speedY: -(Math.random() * 0.35 + 0.15),
+        speedX: (Math.random() - 0.5) * 0.25,
+        swing: Math.random() * Math.PI * 2,
+        swingSpeed: Math.random() * 0.02 + 0.008
+      };
+    }
+
+    function initParticles() {
+      resize();
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(createParticle());
+      }
+    }
+
+    function updateAndDraw() {
+      if (!isVisible) return;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const targetX = mouseX * 0.2;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        p.swing += p.swingSpeed;
+        p.x += p.speedX + Math.sin(p.swing) * 0.3 + targetX * 0.05;
+        p.y += p.speedY;
+
+        // Efeito de fade nas bordas
+        const edgeDistY = Math.min(p.y, height - p.y);
+        const fadeY = Math.min(edgeDistY / 80, 1);
+        p.alpha = p.baseAlpha * Math.max(0, fadeY);
+
+        // Reposicionamento quando sair da tela
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        } else if (p.y > height + 10) {
+          p.y = -10;
+        }
+
+        if (p.x < -10) p.x = width + 10;
+        else if (p.x > width + 10) p.x = -10;
+
+        // Desenha partícula com gradiente dourado suave
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(218, 183, 141, ${p.alpha})`;
+        ctx.shadowColor = 'rgba(255, 225, 180, 0.45)';
+        ctx.shadowBlur = p.radius * 2.5;
+        ctx.fill();
+      }
+
+      animationFrameId = requestAnimationFrame(updateAndDraw);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+
+    if (!isTouchDevice) {
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left) / width - 0.5;
+        mouseY = (e.clientY - rect.top) / height - 0.5;
+      }, { passive: true });
+    }
+
+    // Otimização: pausa renderização quando fora da viewport
+    if (ScrollTrigger) {
+      ScrollTrigger.create({
+        trigger: hero,
+        start: 'top bottom',
+        end: 'bottom top',
+        onEnter: () => {
+          isVisible = true;
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(updateAndDraw);
+        },
+        onLeave: () => {
+          isVisible = false;
+          cancelAnimationFrame(animationFrameId);
+        },
+        onEnterBack: () => {
+          isVisible = true;
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(updateAndDraw);
+        },
+        onLeaveBack: () => {
+          isVisible = false;
+          cancelAnimationFrame(animationFrameId);
+        }
+      });
+    }
+
+    initParticles();
+    animationFrameId = requestAnimationFrame(updateAndDraw);
+  }
+
+  /* ==========================================================================
+     3. AURA DOURADA NO CURSOR (DESKTOP)
+     ========================================================================== */
+  function initCursorAura() {
+    if (isTouchDevice) return;
+
+    const darkSections = document.querySelectorAll('.hero-section, .bpo-financeiro-banner, .main-footer');
+    darkSections.forEach(section => {
+      let aura = section.querySelector('.hero-cursor-aura');
+      if (!aura) {
+        aura = document.createElement('div');
+        aura.className = 'hero-cursor-aura';
+        section.appendChild(aura);
+      }
+
+      section.addEventListener('mousemove', (e) => {
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        gsap.to(aura, {
+          left: x,
+          top: y,
+          opacity: 1,
+          duration: 0.55,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      });
+
+      section.addEventListener('mouseleave', () => {
+        gsap.to(aura, {
+          opacity: 0,
+          duration: 0.6,
+          ease: 'power2.out'
+        });
+      });
+    });
+  }
+
+  /* ==========================================================================
+     4. TIMELINE DE ENTRADA HERO COM SHIMMER METÁLICO
      ========================================================================== */
   function initHeroAnimations() {
     const heroSection = document.querySelector('.hero-section');
@@ -47,78 +277,53 @@
     if (heroBadge) {
       tl.from(heroBadge, {
         opacity: 0,
-        y: -18,
-        scale: 0.94,
-        duration: 0.75,
-        delay: 0.15
+        y: -20,
+        scale: 0.92,
+        duration: 0.8,
+        delay: 0.1
       });
     }
 
     if (heroTitle) {
       tl.from(heroTitle, {
         opacity: 0,
-        y: 28,
-        duration: 0.85
-      }, '-=0.45');
+        y: 32,
+        duration: 0.9
+      }, '-=0.5');
     }
 
     if (heroDesc) {
       tl.from(heroDesc, {
         opacity: 0,
-        y: 22,
-        duration: 0.8
-      }, '-=0.55');
+        y: 24,
+        duration: 0.85
+      }, '-=0.6');
     }
 
     if (heroCtas && heroCtas.length) {
       tl.from(heroCtas, {
         opacity: 0,
-        y: 18,
-        stagger: 0.12,
-        duration: 0.7
-      }, '-=0.5');
+        y: 20,
+        stagger: 0.14,
+        duration: 0.75
+      }, '-=0.55');
     }
 
-    // Brilho pulsante contínuo no fundo da Hero
+    // Brilho pulsante contínuo
     if (heroGlow) {
       gsap.to(heroGlow, {
-        scale: 1.14,
-        opacity: 0.85,
+        scale: 1.16,
+        opacity: 0.88,
         duration: 4.8,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut'
       });
-
-      // Parallax com movimento do mouse (desktop)
-      if (!isTouchDevice) {
-        heroSection.addEventListener('mousemove', (e) => {
-          const rect = heroSection.getBoundingClientRect();
-          const relX = (e.clientX - rect.left) / rect.width - 0.5;
-          const relY = (e.clientY - rect.top) / rect.height - 0.5;
-
-          gsap.to(heroGlow, {
-            x: relX * 70,
-            y: relY * 70,
-            duration: 1.4,
-            ease: 'power2.out'
-          });
-        });
-
-        heroSection.addEventListener('mouseleave', () => {
-          gsap.to(heroGlow, {
-            x: 0,
-            y: 0,
-            duration: 1.2,
-            ease: 'power2.out'
-          });
-        });
-      }
     }
   }
 
   /* ==========================================================================
-     2. PARALLAX MULTIPLANO COM SCROLLTRIGGER
+     5. PARALLAX MULTIPLANO COM SCROLLTRIGGER
      ========================================================================== */
   function initParallax() {
     if (!ScrollTrigger) return;
@@ -128,8 +333,8 @@
     const heroContent = document.querySelector('.hero-content');
     if (heroSection && heroContent) {
       gsap.to(heroContent, {
-        y: 55,
-        opacity: 0.75,
+        y: 65,
+        opacity: 0.7,
         ease: 'none',
         scrollTrigger: {
           trigger: heroSection,
@@ -140,7 +345,7 @@
       });
     }
 
-    // B. Parallax na dobra "Quem Somos" (Imagem do CEO e Badge)
+    // B. Parallax na dobra "Quem Somos" (Imagem CEO + Badges)
     const aboutWrapper = document.querySelector('.about-image-wrapper');
     if (aboutWrapper) {
       const aboutFrame = aboutWrapper.querySelector('.about-image-frame');
@@ -149,7 +354,7 @@
 
       if (aboutDecor) {
         gsap.to(aboutDecor, {
-          yPercent: -12,
+          yPercent: -14,
           ease: 'none',
           scrollTrigger: {
             trigger: aboutWrapper,
@@ -162,7 +367,7 @@
 
       if (aboutFrame) {
         gsap.to(aboutFrame, {
-          yPercent: 6,
+          yPercent: 7,
           ease: 'none',
           scrollTrigger: {
             trigger: aboutWrapper,
@@ -175,7 +380,7 @@
 
       if (aboutBadge) {
         gsap.to(aboutBadge, {
-          yPercent: -18,
+          yPercent: -22,
           ease: 'none',
           scrollTrigger: {
             trigger: aboutWrapper,
@@ -196,7 +401,7 @@
       }
     }
 
-    // C. Parallax na dobra "BPO Financeiro" (Dashboard e Badges flutuantes)
+    // C. Parallax na dobra "BPO Financeiro"
     const bpoFrame = document.querySelector('.bpo-image-frame');
     if (bpoFrame) {
       const bpoImg = bpoFrame.querySelector('img');
@@ -205,7 +410,7 @@
 
       if (bpoImg) {
         gsap.to(bpoImg, {
-          yPercent: 8,
+          yPercent: 9,
           ease: 'none',
           scrollTrigger: {
             trigger: bpoFrame,
@@ -218,7 +423,7 @@
 
       if (badgeTop) {
         gsap.to(badgeTop, {
-          yPercent: -20,
+          yPercent: -22,
           ease: 'none',
           scrollTrigger: {
             trigger: bpoFrame,
@@ -228,10 +433,9 @@
           }
         });
 
-        // Flutuação sutil
         gsap.to(badgeTop, {
           y: '-=6',
-          rotation: -0.8,
+          rotation: -1,
           duration: 3.6,
           repeat: -1,
           yoyo: true,
@@ -241,7 +445,7 @@
 
       if (badgeBottom) {
         gsap.to(badgeBottom, {
-          yPercent: 18,
+          yPercent: 20,
           ease: 'none',
           scrollTrigger: {
             trigger: bpoFrame,
@@ -251,10 +455,9 @@
           }
         });
 
-        // Flutuação sutil descompassada
         gsap.to(badgeBottom, {
           y: '+=6',
-          rotation: 0.8,
+          rotation: 1,
           duration: 4.0,
           repeat: -1,
           yoyo: true,
@@ -266,12 +469,12 @@
   }
 
   /* ==========================================================================
-     3. REVELAÇÕES REFINADAS COM SCROLLTRIGGER (STAGGER SUAVE)
+     6. REVELAÇÃO REFINADA COM SCROLLTRIGGER (STAGGER SUAVE)
      ========================================================================== */
   function initScrollTriggers() {
     if (!ScrollTrigger) return;
 
-    // A. Cabeçalhos de seção (Badge + Título + Subtítulo)
+    // Cabeçalhos de seção (Badge + Título + Subtítulo)
     const sectionHeaders = document.querySelectorAll('.section-header-center, .section-header');
     sectionHeaders.forEach(header => {
       const badge = header.querySelector('.section-badge');
@@ -288,17 +491,17 @@
       });
 
       if (badge) {
-        tl.from(badge, { opacity: 0, y: 15, scale: 0.92, duration: 0.6 });
+        tl.from(badge, { opacity: 0, y: 16, scale: 0.92, duration: 0.6 });
       }
       if (title) {
-        tl.from(title, { opacity: 0, y: 26, duration: 0.75 }, '-=0.4');
+        tl.from(title, { opacity: 0, y: 28, duration: 0.8 }, '-=0.4');
       }
       if (subtitle) {
-        tl.from(subtitle, { opacity: 0, y: 20, duration: 0.7 }, '-=0.5');
+        tl.from(subtitle, { opacity: 0, y: 20, duration: 0.75 }, '-=0.5');
       }
     });
 
-    // B. Grids com efeito Stagger elegante
+    // Grids com efeito Stagger elegante
     const gridConfigs = [
       { selector: '.quick-help-grid', items: '.quick-card', y: 35, stagger: 0.1 },
       { selector: '.diff-grid', items: '.diff-card', y: 40, stagger: 0.12 },
@@ -330,7 +533,7 @@
       });
     });
 
-    // C. Itens de estatística em "Quem Somos"
+    // Itens de estatística em "Quem Somos"
     const statsContainer = document.querySelector('.about-stats');
     if (statsContainer) {
       const statItems = statsContainer.querySelectorAll('.stat-item');
@@ -353,7 +556,7 @@
   }
 
   /* ==========================================================================
-     4. TILT 3D SUAVE & REFLEXO INTERATIVO (DESKTOP)
+     7. TILT 3D COM LENS SHEEN EM CARDS (DESKTOP)
      ========================================================================== */
   function initCardTilt() {
     if (isTouchDevice) return;
@@ -371,9 +574,8 @@
         const xNorm = (x / rect.width) - 0.5;
         const yNorm = (y / rect.height) - 0.5;
 
-        // Limita a rotação máxima a 4 graus para efeito sutil e elegante
-        const rotY = xNorm * 7;
-        const rotX = -yNorm * 7;
+        const rotY = xNorm * 7.5;
+        const rotX = -yNorm * 7.5;
 
         gsap.to(card, {
           rotateY: rotY,
@@ -384,7 +586,6 @@
           overwrite: 'auto'
         });
 
-        // Atualiza variáveis do brilho radial
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
       });
@@ -402,7 +603,7 @@
   }
 
   /* ==========================================================================
-     5. BOTÕES MAGNÉTICOS REFINADOS (MICROINTERAÇÃO PREMIUM)
+     8. BOTÕES MAGNÉTICOS REFINADOS (MICROINTERAÇÃO)
      ========================================================================== */
   function initMagneticButtons() {
     if (isTouchDevice) return;
@@ -417,7 +618,6 @@
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
 
-        // Atração suave de até 7px
         gsap.to(btn, {
           x: x * 0.22,
           y: y * 0.22,
@@ -440,46 +640,43 @@
   }
 
   /* ==========================================================================
-     6. AMBIENTE E MICROINTERAÇÕES CONTÍNUAS
+     9. TICKER REATIVO À VELOCIDADE DE SCROLL
      ========================================================================== */
-  function initAmbientElements() {
-    // Balão flutuante do WhatsApp: pulso de atenção sutil
-    const bubble = document.getElementById('whatsappPromptBubble');
-    if (bubble) {
-      gsap.to(bubble, {
-        y: '-=4',
-        duration: 2.6,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
-    }
+  function initVelocityMarquee() {
+    if (!ScrollTrigger) return;
 
-    // Botão flutuante WhatsApp: respiração suave
-    const waFloat = document.querySelector('.whatsapp-float');
-    if (waFloat) {
-      gsap.to(waFloat, {
-        boxShadow: '0 8px 32px rgba(37, 211, 102, 0.48)',
-        duration: 1.8,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
-    }
+    const marqueeTrack = document.querySelector('.marquee-track');
+    if (!marqueeTrack) return;
+
+    let baseDuration = 40;
+
+    ScrollTrigger.create({
+      onUpdate: (self) => {
+        const velocity = Math.abs(self.getVelocity());
+        if (velocity > 400) {
+          // Acelera sutilmente a faixa durante scrolls rápidos
+          marqueeTrack.style.animationDuration = '18s';
+        } else {
+          marqueeTrack.style.animationDuration = `${baseDuration}s`;
+        }
+      }
+    });
   }
 
   /* ==========================================================================
      INICIALIZAÇÃO APÓS CARREGAMENTO DO DOM
      ========================================================================== */
   function start() {
+    initLenisSmoothScroll();
+    initHeroParticles();
+    initCursorAura();
     initHeroAnimations();
     initParallax();
     initScrollTriggers();
     initCardTilt();
     initMagneticButtons();
-    initAmbientElements();
+    initVelocityMarquee();
 
-    // Atualiza ScrollTrigger após carregamento de todas as imagens
     window.addEventListener('load', () => {
       if (ScrollTrigger) ScrollTrigger.refresh();
     });
