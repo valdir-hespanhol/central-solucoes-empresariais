@@ -117,20 +117,24 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => el.classList.add('revealed'));
   }
 
-  // 5. Smooth Counter Animation for Stats (Hero and About)
+  // 5. Smooth Counter Animation for Stats (Observing each counter element directly)
   const animateCounter = (counter) => {
     const rawTarget = counter.getAttribute('data-target');
     const target = parseInt(rawTarget.replace(/\D/g, ''), 10) || 0;
-    const duration = 1600;
+    const duration = 2000;
     const startTime = performance.now();
 
     const formatNumber = (num) => {
       return num >= 1000 ? num.toLocaleString('pt-BR') : num.toString();
     };
 
+    // Ensure it starts visually from 0
+    counter.textContent = '0';
+
     const updateCount = (currentTime) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic for a natural deceleration towards the end
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(easeOut * target);
 
@@ -146,29 +150,36 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(updateCount);
   };
 
-  // Run Hero counters immediately on load
-  const heroCounters = document.querySelectorAll('.hero-section .stat-counter');
-  setTimeout(() => {
-    heroCounters.forEach(counter => animateCounter(counter));
-  }, 250);
+  const initCounters = () => {
+    const counters = document.querySelectorAll('.stat-counter');
+    if (!counters.length) return;
 
-  // Run About section counters on scroll into view
-  const aboutSection = document.querySelector('.about-section');
-  const aboutCounters = document.querySelectorAll('.about-section .stat-counter');
-  let aboutAnimated = false;
-
-  if (aboutSection && aboutCounters.length > 0) {
-    const aboutObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !aboutAnimated) {
-          aboutAnimated = true;
-          aboutCounters.forEach(counter => animateCounter(counter));
-        }
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counter = entry.target;
+            animateCounter(counter);
+            observer.unobserve(counter);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -20px 0px'
       });
-    }, { threshold: 0.3 });
 
-    aboutObserver.observe(aboutSection);
-  }
+      counters.forEach(counter => {
+        // Start display at 0
+        counter.textContent = '0';
+        counterObserver.observe(counter);
+      });
+    } else {
+      counters.forEach(counter => animateCounter(counter));
+    }
+  };
+
+  // Initialize counters when DOM is ready
+  initCounters();
 
   // 6. Interactive Spotlight Glow Effect on Cards
   const spotlightCards = document.querySelectorAll('.spotlight-card, .diff-card, .contact-form-card');
