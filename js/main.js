@@ -4,36 +4,8 @@
  * efeito spotlight, FAQ interativo, máscara de telefone e WhatsApp prompt
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Header scroll effect & Scroll Progress Bar
-  const header = document.querySelector('.main-header');
-  const progressBar = document.querySelector('.scroll-progress-bar');
-  
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-    
-    // Header shadow & background
-    if (scrollY > 30) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
-    }
-
-    // Progress Bar width
-    if (progressBar) {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
-      progressBar.style.width = `${progress}%`;
-    }
-
-    // Scrollspy navigation active state
-    updateScrollspy();
-  };
-
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll(); // Initial run
-
-  // 2. Scrollspy Navigation
+const initCentralApp = () => {
+  // 1. Scrollspy Navigation
   const navLinks = document.querySelectorAll('.nav-menu .nav-link');
   const sections = document.querySelectorAll('section[id], .quick-help-section[id]');
 
@@ -63,6 +35,34 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // 2. Header scroll effect & Scroll Progress Bar
+  const header = document.querySelector('.main-header');
+  const progressBar = document.querySelector('.scroll-progress-bar');
+  
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    
+    // Header shadow & background
+    if (scrollY > 30) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+
+    // Progress Bar width
+    if (progressBar) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    // Scrollspy navigation active state
+    updateScrollspy();
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // Initial run
 
   // 3. Mobile Navigation Toggle
   const mobileToggle = document.getElementById('mobileToggle');
@@ -117,30 +117,31 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => el.classList.add('revealed'));
   }
 
-  // 5. Smooth Counter Animation for Stats (Observing each counter element directly)
+  // 5. Smooth Counter Animation for Stats
   const animateCounter = (counter) => {
-    const rawTarget = counter.getAttribute('data-target');
-    const target = parseInt(rawTarget.replace(/\D/g, ''), 10) || 0;
-    const duration = 2000;
+    if (counter.dataset.animated === 'true') return;
+    counter.dataset.animated = 'true';
+
+    const rawTarget = counter.getAttribute('data-target') || counter.textContent || '0';
+    const target = parseInt(String(rawTarget).replace(/\D/g, ''), 10) || 0;
+    const duration = 1200;
     const startTime = performance.now();
 
     const formatNumber = (num) => {
       return num >= 1000 ? num.toLocaleString('pt-BR') : num.toString();
     };
 
-    // Ensure it starts visually from 0
     counter.textContent = '0';
 
     const updateCount = (currentTime) => {
-      const elapsed = currentTime - startTime;
+      const elapsed = (currentTime || performance.now()) - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic for a natural deceleration towards the end
+      // Ease out cubic for crisp, organic deceleration
       const easeOut = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(easeOut * target);
+      const current = Math.round(easeOut * target);
 
-      counter.textContent = formatNumber(current);
-
-      if (progress < 1) {
+      if (progress < 1 && elapsed < duration) {
+        counter.textContent = formatNumber(current);
         requestAnimationFrame(updateCount);
       } else {
         counter.textContent = formatNumber(target);
@@ -154,6 +155,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const counters = document.querySelectorAll('.stat-counter');
     if (!counters.length) return;
 
+    const isInViewport = (el) => {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top < (window.innerHeight || document.documentElement.clientHeight) + 60 &&
+        rect.bottom > -60
+      );
+    };
+
+    const triggerVisibleCounters = () => {
+      counters.forEach(counter => {
+        if (counter.dataset.animated !== 'true' && isInViewport(counter)) {
+          animateCounter(counter);
+        }
+      });
+    };
+
     if ('IntersectionObserver' in window) {
       const counterObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -164,18 +181,28 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -20px 0px'
+        threshold: 0.05,
+        rootMargin: '0px 0px 80px 0px'
       });
 
       counters.forEach(counter => {
-        // Start display at 0
-        counter.textContent = '0';
         counterObserver.observe(counter);
       });
-    } else {
-      counters.forEach(counter => animateCounter(counter));
     }
+
+    // Immediate viewport check & scroll/resize fallback
+    triggerVisibleCounters();
+    window.addEventListener('scroll', triggerVisibleCounters, { passive: true });
+    window.addEventListener('resize', triggerVisibleCounters, { passive: true });
+
+    // Safety timeout: ensure counters are never stuck at 0 if user jumps to section or on slow render
+    setTimeout(() => {
+      counters.forEach(counter => {
+        if (counter.dataset.animated !== 'true') {
+          animateCounter(counter);
+        }
+      });
+    }, 3500);
   };
 
   // Initialize counters when DOM is ready
@@ -685,5 +712,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initProcessModals();
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCentralApp);
+} else {
+  initCentralApp();
+}
 
