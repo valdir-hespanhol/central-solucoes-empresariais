@@ -2812,22 +2812,138 @@ html.lenis, html.lenis body {
 /* Hero BPO Financeiro */
 .page-hero-bpo {
   position: relative;
-  min-height: 48vh;
+  min-height: 52vh;
   display: flex;
   align-items: center;
-  background-color: var(--color-noir-900);
-  background-image: var(--grad-hero-overlay), url('../Hero 03 - BPO.jpg');
+  background-color: #071722;
+  background-image: 
+    linear-gradient(135deg, rgba(5, 49, 88, 0.94) 0%, rgba(18, 12, 14, 0.88) 45%, rgba(1, 153, 143, 0.85) 100%),
+    url('../Hero 03 - BPO.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: var(--color-white);
-  padding: 165px 0 70px;
+  padding: 165px 0 75px;
   overflow: hidden;
 }
 
+.page-hero-bpo .hero-glow {
+  position: absolute;
+  top: -20%;
+  right: 10%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(1, 153, 143, 0.35) 0%, rgba(5, 49, 88, 0.2) 50%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-bpo-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  position: relative;
+  z-index: 2;
+}
+
 .page-hero-bpo .hero-content {
-  max-width: 820px;
+  max-width: 660px;
+}
+
+.page-hero-bpo .breadcrumb-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(1, 153, 143, 0.15);
+  border: 1px solid rgba(1, 153, 143, 0.35);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  backdrop-filter: blur(6px);
+}
+
+.page-hero-bpo .breadcrumb-nav a {
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s;
+}
+
+.page-hero-bpo .breadcrumb-nav a:hover {
+  color: #17c4b7;
+}
+
+.page-hero-bpo .breadcrumb-nav .sep {
+  color: rgba(1, 153, 143, 0.6);
+}
+
+.page-hero-bpo .breadcrumb-nav .current {
+  color: #17c4b7;
+  font-weight: 600;
+}
+
+.page-hero-bpo .gradient-gold-text {
+  background: linear-gradient(135deg, #17c4b7 0%, #01998F 40%, #EAD5BF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-bpo-brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.hero-agyle-logo-badge {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(1, 153, 143, 0.4);
+  padding: 16px 26px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 16px 40px rgba(5, 49, 88, 0.4), 0 0 30px rgba(1, 153, 143, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-agyle-logo-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(5, 49, 88, 0.5), 0 0 35px rgba(1, 153, 143, 0.4);
+}
+
+.hero-agyle-logo-img {
+  max-width: 220px;
+  height: auto;
+  display: block;
+}
+
+.hero-agyle-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(5, 49, 88, 0.75);
+  border: 1px solid rgba(1, 153, 143, 0.35);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  backdrop-filter: blur(8px);
+  letter-spacing: 0.02em;
+}
+
+.hero-agyle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #17c4b7;
+  box-shadow: 0 0 8px #17c4b7;
+  display: inline-block;
 }
 
 /* Seção Introdução BPO (O que é) */
@@ -3115,6 +3231,21 @@ html.lenis, html.lenis body {
 }
 
 @media (max-width: 991px) {
+  .hero-bpo-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+  .hero-bpo-brand-card {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .hero-agyle-logo-badge {
+    padding: 14px 20px;
+  }
+  .hero-agyle-logo-img {
+    max-width: 180px;
+  }
   .bpo-intro-grid {
     grid-template-columns: 1fr;
   }
