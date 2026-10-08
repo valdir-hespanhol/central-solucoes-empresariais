@@ -225,7 +225,7 @@
   function initCursorAura() {
     if (isTouchDevice) return;
 
-    const darkSections = document.querySelectorAll('.hero-section, .bpo-financeiro-banner, .main-footer');
+    const darkSections = document.querySelectorAll('.hero-section, .bpo-financeiro-banner');
     darkSections.forEach(section => {
       let aura = section.querySelector('.hero-cursor-aura');
       if (!aura) {
