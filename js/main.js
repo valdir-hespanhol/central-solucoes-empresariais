@@ -882,7 +882,7 @@ const initCentralApp = () => {
     const track = document.getElementById('bpoSpecialistsTrack');
     const prevBtn = document.getElementById('bpoCarouselPrev');
     const nextBtn = document.getElementById('bpoCarouselNext');
-    const dots = document.querySelectorAll('#bpoCarouselDots .bpo-carousel-dot');
+    const dots = document.querySelectorAll('#bpoCarouselDots .bpo-dot, #bpoCarouselDots .bpo-carousel-dot');
     const counterCurrent = document.getElementById('bpoCarouselCurrent');
     const container = document.getElementById('bpoSpecialistsCarousel');
 
