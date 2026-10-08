@@ -2937,10 +2937,10 @@ html.lenis, html.lenis body {
   max-width: 920px;
   margin: 0 auto;
   background: var(--color-white);
-  border: 1px solid var(--color-border-light);
+  border: 1px solid rgba(1, 153, 143, 0.22);
   border-radius: var(--radius-xl);
   padding: 50px 48px;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 16px 40px rgba(5, 49, 88, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -2952,7 +2952,22 @@ html.lenis, html.lenis body {
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--grad-gold);
+  background: linear-gradient(90deg, #01998F 0%, #053158 50%, #DAB78D 100%);
+}
+
+.bpo-operations-logo-wrap {
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bpo-operations-logo-img {
+  max-width: 210px;
+  height: auto;
+  display: inline-block;
+  filter: drop-shadow(0 4px 12px rgba(5, 49, 88, 0.06));
 }
 
 .bpo-operations-headline {
@@ -2976,28 +2991,29 @@ html.lenis, html.lenis body {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--color-surface-light);
-  border: 1px solid var(--color-border-light);
+  background: #F8FBFA;
+  border: 1px solid rgba(1, 153, 143, 0.16);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-noir-900);
+  color: #0c2033;
   transition: var(--transition);
 }
 
 .bpo-operation-item:hover {
-  border-color: var(--color-gold-500);
+  border-color: #01998F;
+  background: #ffffff;
   transform: translateX(4px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 6px 16px rgba(1, 153, 143, 0.12);
 }
 
 .bpo-operation-item .op-check {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: rgba(218, 183, 141, 0.2);
-  color: var(--color-gold-600);
+  background: rgba(1, 153, 143, 0.15);
+  color: #01998F;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3011,7 +3027,7 @@ html.lenis, html.lenis body {
 
 .bpo-operations-footer {
   text-align: center;
-  border-top: 1px solid var(--color-border-light);
+  border-top: 1px solid rgba(1, 153, 143, 0.15);
   padding-top: 30px;
 }
 
@@ -3023,6 +3039,79 @@ html.lenis, html.lenis body {
   max-width: 680px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ==========================================================================
+   HARMONIZAÇÃO DE CORES DA PÁGINA BPO FINANCEIRO (ÁGYLE BPO)
+   ========================================================================== */
+.page-bpo .section-badge {
+  background: rgba(1, 153, 143, 0.1);
+  color: #01998F;
+  border: 1px solid rgba(1, 153, 143, 0.3);
+}
+
+.page-bpo .section-badge.badge-dark {
+  background: rgba(1, 153, 143, 0.15);
+  color: #17c4b7;
+  border: 1px solid rgba(1, 153, 143, 0.4);
+}
+
+.page-bpo .bpo-advantage-card {
+  border-color: rgba(1, 153, 143, 0.2);
+}
+
+.page-bpo .bpo-advantage-card:hover {
+  border-color: #01998F;
+  box-shadow: 0 16px 36px rgba(5, 49, 88, 0.35), 0 0 20px rgba(1, 153, 143, 0.18);
+}
+
+.page-bpo .bpo-advantage-icon {
+  background: rgba(1, 153, 143, 0.14);
+  border-color: rgba(1, 153, 143, 0.35);
+  color: #17c4b7;
+}
+
+.page-bpo .bpo-image-frame {
+  border-color: rgba(1, 153, 143, 0.3);
+  box-shadow: 0 20px 60px rgba(5, 49, 88, 0.22);
+}
+
+.page-bpo .bpo-floating-badge {
+  border-color: rgba(1, 153, 143, 0.4);
+  background: rgba(5, 49, 88, 0.88);
+  box-shadow: 0 15px 35px rgba(5, 49, 88, 0.45);
+}
+
+.page-bpo .bpo-floating-badge .badge-icon-wrap {
+  background: rgba(1, 153, 143, 0.2);
+  color: #17c4b7;
+}
+
+.agyle-symbol-badge-wrap {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(1, 153, 143, 0.35);
+  padding: 5px;
+}
+
+.bpo-badge-symbol-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.page-bpo .btn-primary {
+  background: linear-gradient(135deg, #01998F 0%, #053158 100%);
+  border-color: #01998F;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(1, 153, 143, 0.25);
+}
+
+.page-bpo .btn-primary:hover {
+  background: linear-gradient(135deg, #02b3a7 0%, #084377 100%);
+  border-color: #02b3a7;
+  box-shadow: 0 10px 28px rgba(1, 153, 143, 0.35);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 991px) {
