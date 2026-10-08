@@ -877,8 +877,122 @@ const initCentralApp = () => {
     startAutoPlay();
   }
 
+  // Carrossel de Especialistas Ágyle BPO (Dionísio & Murillo)
+  function initBpoSpecialistsCarousel() {
+    const track = document.getElementById('bpoSpecialistsTrack');
+    const prevBtn = document.getElementById('bpoCarouselPrev');
+    const nextBtn = document.getElementById('bpoCarouselNext');
+    const dots = document.querySelectorAll('#bpoCarouselDots .bpo-carousel-dot');
+    const counterCurrent = document.getElementById('bpoCarouselCurrent');
+    const container = document.getElementById('bpoSpecialistsCarousel');
+
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.bpo-carousel-slide');
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return;
+
+    let currentIndex = 0;
+    let autoPlayTimer = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function goToSlide(index) {
+      if (index < 0) {
+        currentIndex = totalSlides - 1;
+      } else if (index >= totalSlides) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      // Atualiza dots interativos
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+
+      // Atualiza contador de slides
+      if (counterCurrent) {
+        counterCurrent.textContent = String(currentIndex + 1).padStart(2, '0');
+      }
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        goToSlide(idx);
+        startAutoPlay();
+      });
+    });
+
+    // Touch Swipe em Mobile
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+      startAutoPlay();
+    }, { passive: true });
+
+    // Pausar auto-play no hover do usuário
+    if (container) {
+      container.addEventListener('mouseenter', stopAutoPlay);
+      container.addEventListener('mouseleave', startAutoPlay);
+    }
+
+    // Inicialização
+    goToSlide(0);
+    startAutoPlay();
+  }
+
   initProcessModals();
   initTestimonialCarousel();
+  initBpoSpecialistsCarousel();
 };
 
 if (document.readyState === 'loading') {
