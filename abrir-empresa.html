@@ -523,26 +523,6 @@
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/vendor/lenis.min.js"></script>
   <script src="js/animations.js"></script>
-  <!-- Scripts -->
   <script src="js/main.js"></script>
-  <script>
-    // Tratamento de envio do formulário de abertura
-    const abrirEmpresaForm = document.getElementById('abrirEmpresaForm');
-    if (abrirEmpresaForm) {
-      abrirEmpresaForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const nome = document.getElementById('ae-nome').value;
-        const empresa = document.getElementById('ae-empresa').value;
-        const email = document.getElementById('ae-email').value;
-        const telefone = document.getElementById('ae-telefone').value;
-        const servico = document.getElementById('ae-servico').value;
-        const mensagem = document.getElementById('ae-mensagem').value;
-
-        const textoWhats = `*Solicitação de Abertura de Empresa*%0A%0A*Nome:* ${encodeURIComponent(nome)}%0A*Empresa/Ramo:* ${encodeURIComponent(empresa)}%0A*E-mail:* ${encodeURIComponent(email)}%0A*Telefone:* ${encodeURIComponent(telefone)}%0A*Serviço:* ${encodeURIComponent(servico)}%0A*Observação:* ${encodeURIComponent(mensagem || 'Não informado')}`;
-        
-        window.open(`https://wa.me/551938344525?text=${textoWhats}`, '_blank');
-      });
-    }
-  </script>
 </body>
 </html>

@@ -299,46 +299,177 @@ const initCentralApp = () => {
     }
   }
 
-  // 10. Contact / Proposal Form to WhatsApp Integration
-  const proposalForm = document.getElementById('proposalForm');
-  if (proposalForm) {
-    proposalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const nome = document.getElementById('formNome')?.value.trim() || '';
-      const empresa = document.getElementById('formEmpresa')?.value.trim() || '';
-      const email = document.getElementById('formEmail')?.value.trim() || '';
-      const telefone = document.getElementById('formTelefone')?.value.trim() || '';
-      const servico = document.getElementById('formServico')?.value || '';
-      const mensagem = document.getElementById('formMensagem')?.value.trim() || '';
+  // 10. Contact / Proposal Form Email Dispatch System (contato@soucentral.com.br)
+  function initContactForms() {
+    const formConfigs = [
+      {
+        id: 'proposalForm',
+        fields: { nome: 'formNome', empresa: 'formEmpresa', email: 'formEmail', telefone: 'formTelefone', servico: 'formServico', mensagem: 'formMensagem' },
+        defaultServico: 'Solicitação de Proposta (Página Inicial)'
+      },
+      {
+        id: 'contactPageForm',
+        fields: { nome: 'page-nome', empresa: 'page-empresa', email: 'page-email', telefone: 'page-phone', servico: 'page-assunto', mensagem: 'page-mensagem' },
+        defaultServico: 'Contato Geral (Página Contato)'
+      },
+      {
+        id: 'trocarContadorForm',
+        fields: { nome: 'tc-nome', empresa: 'tc-empresa', email: 'tc-email', telefone: 'tc-telefone', servico: 'tc-servico', mensagem: 'tc-mensagem' },
+        defaultServico: 'Quero Trocar de Contador'
+      },
+      {
+        id: 'abrirEmpresaForm',
+        fields: { nome: 'ae-nome', empresa: 'ae-empresa', email: 'ae-email', telefone: 'ae-telefone', servico: 'ae-servico', mensagem: 'ae-mensagem' },
+        defaultServico: 'Quero Abrir uma Empresa'
+      }
+    ];
 
-      const texto = `*Solicitação de Proposta - Site Central*%0A%0A` +
-                    `*Nome:* ${encodeURIComponent(nome)}%0A` +
-                    `*Empresa:* ${encodeURIComponent(empresa || 'Não informado')}%0A` +
-                    `*E-mail:* ${encodeURIComponent(email)}%0A` +
-                    `*Telefone/WhatsApp:* ${encodeURIComponent(telefone)}%0A` +
-                    `*Interesse Principal:* ${encodeURIComponent(servico)}%0A` +
-                    (mensagem ? `*Mensagem:* ${encodeURIComponent(mensagem)}` : '');
+    function showFormFeedback(form, title, message, type) {
+      let alertBox = form.querySelector('.form-feedback-alert');
+      if (!alertBox) {
+        alertBox = document.createElement('div');
+        form.prepend(alertBox);
+      }
+      alertBox.className = `form-feedback-alert ${type}`;
 
-      // Redireciona para o WhatsApp comercial da Central: (19) 3894-4657
-      const whatsappUrl = `https://api.whatsapp.com/send?phone=551938944657&text=${texto}`;
-      
-      const submitBtn = proposalForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = `<span>Enviando...</span>`;
-      submitBtn.disabled = true;
+      let iconSvg = '';
+      if (type === 'success') {
+        iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      } else if (type === 'error') {
+        iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      } else {
+        iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+      }
 
-      setTimeout(() => {
-        window.open(whatsappUrl, '_blank');
-        submitBtn.innerHTML = `<span>Mensagem Enviada com Sucesso!</span>`;
-        proposalForm.reset();
-        setTimeout(() => {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
-        }, 3000);
-      }, 600);
+      alertBox.innerHTML = `
+        <div class="feedback-icon" aria-hidden="true">${iconSvg}</div>
+        <div class="feedback-text">
+          <strong>${title}</strong>
+          <p>${message}</p>
+        </div>
+      `;
+      alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    formConfigs.forEach(config => {
+      const form = document.getElementById(config.id);
+      if (!form) return;
+
+      // Injeta campo honeypot anti-spam caso ainda não exista no DOM
+      let honeypot = form.querySelector('input[name="b_website"]');
+      if (!honeypot) {
+        honeypot = document.createElement('input');
+        honeypot.type = 'text';
+        honeypot.name = 'b_website';
+        honeypot.tabIndex = -1;
+        honeypot.autocomplete = 'off';
+        honeypot.style.position = 'absolute';
+        honeypot.style.left = '-9999px';
+        honeypot.style.opacity = '0';
+        honeypot.style.height = '0';
+        honeypot.style.width = '0';
+        honeypot.style.zIndex = '-1';
+        form.appendChild(honeypot);
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Limpa alerta anterior
+        const prevAlert = form.querySelector('.form-feedback-alert');
+        if (prevAlert) prevAlert.remove();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+        const getVal = (id) => {
+          const el = document.getElementById(id);
+          return el ? el.value.trim() : '';
+        };
+
+        const nome = getVal(config.fields.nome);
+        const empresa = getVal(config.fields.empresa);
+        const email = getVal(config.fields.email);
+        const telefone = getVal(config.fields.telefone);
+        const servico = getVal(config.fields.servico) || config.defaultServico;
+        const mensagem = getVal(config.fields.mensagem);
+        const honeypotVal = honeypot ? honeypot.value : '';
+
+        if (!nome || !email || !telefone) {
+          showFormFeedback(form, 'Campos Obrigatórios', 'Por favor, preencha todos os campos obrigatórios marcados com (*).', 'error');
+          return;
+        }
+
+        // Estado de carregamento do botão
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `
+            <span style="display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+              <span class="spinner" style="display:inline-block; width:16px; height:16px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin 0.75s linear infinite;"></span>
+              <span>Enviando mensagem...</span>
+            </span>
+          `;
+        }
+
+        try {
+          const payload = {
+            nome,
+            empresa,
+            email,
+            telefone,
+            servico,
+            mensagem,
+            origem: `${document.title} (${window.location.pathname.split('/').pop() || 'index.html'})`,
+            b_website: honeypotVal
+          };
+
+          const response = await fetch('api/contact.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            showFormFeedback(
+              form,
+              'Mensagem Enviada com Sucesso!',
+              result.message || 'Recebemos suas informações com sucesso. Nossa equipe entrará em contato em breve pelo telefone ou e-mail informado.',
+              'success'
+            );
+            form.reset();
+            if (submitBtn) {
+              submitBtn.innerHTML = `<span>✓ Mensagem Enviada</span>`;
+              setTimeout(() => {
+                submitBtn.innerHTML = originalBtnHtml;
+                submitBtn.disabled = false;
+              }, 4000);
+            }
+          } else {
+            throw new Error(result.message || 'Erro durante o envio da solicitação.');
+          }
+        } catch (err) {
+          console.error('Falha no envio do contato:', err);
+          showFormFeedback(
+            form,
+            'Não foi possível enviar pelo formulário',
+            (err && err.message) ? err.message : 'Houve uma oscilação na conexão. Você também pode falar conosco diretamente pelo telefone (19) 3894-4657 ou via WhatsApp.',
+            'error'
+          );
+          if (submitBtn) {
+            submitBtn.innerHTML = originalBtnHtml;
+            submitBtn.disabled = false;
+          }
+        }
+      });
     });
   }
+
+  initContactForms();
 
   // 11. Hero Background Switcher Option
   const heroSection = document.querySelector('.hero-section');
