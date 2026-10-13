@@ -1972,6 +1972,43 @@ select.form-control option {
   font-weight: 500;
 }
 
+.footer-dev-credit {
+  color: var(--color-text-light-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+.footer-developer-link {
+  color: var(--color-gold-400);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.footer-developer-link svg {
+  color: var(--color-gold-400);
+  transition: var(--transition);
+}
+
+.footer-developer-link:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-developer-link:hover svg {
+  color: var(--color-white);
+  transform: scale(1.12);
+}
+
+
 /* ==========================================================================
    WHATSAPP FLUTUANTE
    ========================================================================== */
