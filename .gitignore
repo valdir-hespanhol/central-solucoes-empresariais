@@ -17,3 +17,7 @@ Desktop.ini
 .idea/
 *.tmp
 *.bak
+
+# E-mail de referência
+Re site.eml
+email_attachments/

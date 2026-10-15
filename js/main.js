@@ -1121,9 +1121,265 @@ const initCentralApp = () => {
     startAutoPlay();
   }
 
+  // 15. Efeito Interativo de Partículas Radiais no Hero
+  function initHeroRadialParticles() {
+    const canvas = document.getElementById('heroRadialCanvas');
+    const heroSection = document.querySelector('.hero-section');
+    if (!canvas || !heroSection) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let animationFrameId = null;
+    let isVisible = true;
+
+    // Estado do cursor para dispersão
+    const mouse = {
+      x: -9999,
+      y: -9999,
+      radius: 175,
+      active: false
+    };
+
+    let particles = [];
+    const ringRadiiBase = [80, 150, 230, 320, 420, 530, 650, 780];
+
+    function resize() {
+      const rect = heroSection.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+
+      createParticles();
+    }
+
+    function createParticles() {
+      particles = [];
+      const cx = width > 992 ? width * 0.72 : width * 0.5;
+      const cy = height * 0.5;
+      const scaleFactor = Math.min(Math.max(width / 1200, 0.7), 1.25);
+
+      ringRadiiBase.forEach((baseR, ringIdx) => {
+        const r = baseR * scaleFactor;
+        const count = Math.round((14 + ringIdx * 8) * (width > 768 ? 1 : 0.7));
+        const dir = ringIdx % 2 === 0 ? 1 : -1;
+        const speed = (0.00035 + (0.00015 / (ringIdx + 1))) * dir;
+
+        for (let i = 0; i < count; i++) {
+          const angle = (i / count) * Math.PI * 2 + (Math.random() * 0.08 - 0.04);
+          const radialOffset = (Math.random() - 0.5) * 8;
+          const finalR = r + radialOffset;
+
+          const restX = cx + Math.cos(angle) * finalR;
+          const restY = cy + Math.sin(angle) * finalR;
+
+          const rand = Math.random();
+          let color;
+          let glow = false;
+          let size = 1.4 + Math.random() * 1.4;
+
+          if (rand < 0.75) {
+            // Champagne Gold (#DAB78D)
+            const alpha = 0.35 + Math.random() * 0.45;
+            color = `rgba(218, 183, 141, ${alpha.toFixed(2)})`;
+          } else if (rand < 0.90) {
+            // Soft Warm White
+            const alpha = 0.5 + Math.random() * 0.4;
+            color = `rgba(255, 248, 235, ${alpha.toFixed(2)})`;
+            glow = true;
+          } else {
+            // Subtle Teal (#01998F)
+            const alpha = 0.4 + Math.random() * 0.4;
+            color = `rgba(1, 153, 143, ${alpha.toFixed(2)})`;
+          }
+
+          if (Math.random() < 0.08) {
+            size = 2.8 + Math.random() * 0.8;
+            glow = true;
+          }
+
+          particles.push({
+            ringIndex: ringIdx,
+            baseRadius: finalR,
+            angle: angle,
+            orbitSpeed: speed,
+            x: restX,
+            y: restY,
+            targetX: restX,
+            targetY: restY,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: size,
+            color: color,
+            glow: glow
+          });
+        }
+      });
+    }
+
+    // Interatividade do mouse: calcula coordenadas relativas ao hero
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      mouse.active = false;
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    // Suporte a toque para dispositivos móveis
+    heroSection.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        const rect = heroSection.getBoundingClientRect();
+        mouse.x = e.touches[0].clientX - rect.left;
+        mouse.y = e.touches[0].clientY - rect.top;
+        mouse.active = true;
+      }
+    }, { passive: true });
+
+    heroSection.addEventListener('touchend', () => {
+      mouse.active = false;
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    function update() {
+      if (!isVisible) {
+        animationFrameId = requestAnimationFrame(update);
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      const cx = width > 992 ? width * 0.72 : width * 0.5;
+      const cy = height * 0.5;
+      const scaleFactor = Math.min(Math.max(width / 1200, 0.7), 1.25);
+
+      // Traçado sutil das órbitas radiais
+      ctx.lineWidth = 1;
+      for (let i = 0; i < ringRadiiBase.length; i++) {
+        const r = ringRadiiBase[i] * scaleFactor;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(218, 183, 141, 0.04)';
+        ctx.stroke();
+      }
+
+      const spring = 0.04;
+      const friction = 0.86;
+      const repelDist = mouse.radius;
+
+      // Atualiza física das partículas (repulsão e retorno elástico às órbitas)
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Rotação suave na órbita radial
+        p.angle += p.orbitSpeed;
+        p.targetX = cx + Math.cos(p.angle) * p.baseRadius;
+        p.targetY = cy + Math.sin(p.angle) * p.baseRadius;
+
+        // Efeito mouse: empurra e desorganiza as partículas
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist < repelDist && dist > 0.01) {
+            const factor = (1 - dist / repelDist);
+            const force = factor * factor * 15;
+            const angle = Math.atan2(dy, dx);
+            p.vx += Math.cos(angle) * force;
+            p.vy += Math.sin(angle) * force;
+          }
+        }
+
+        // Retorno elástico (Hooke's Law): reorganiza de volta na órbita radial
+        const ax = (p.targetX - p.x) * spring;
+        const ay = (p.targetY - p.y) * spring;
+
+        p.vx = (p.vx + ax) * friction;
+        p.vy = (p.vy + ay) * friction;
+
+        p.x += p.vx;
+        p.y += p.vy;
+      }
+
+      // Linhas geométricas de conexão entre partículas vizinhas na mesma órbita
+      ctx.lineWidth = 0.75;
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          if (Math.abs(p1.ringIndex - p2.ringIndex) > 1) continue;
+
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.hypot(dx, dy);
+          const maxLineDist = 58;
+
+          if (dist < maxLineDist) {
+            const alpha = (1 - dist / maxLineDist) * 0.16;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(218, 183, 141, ${alpha.toFixed(3)})`;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Renderiza as partículas
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        if (p.glow) {
+          ctx.shadowColor = 'rgba(218, 183, 141, 0.6)';
+          ctx.shadowBlur = 6;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+
+      animationFrameId = requestAnimationFrame(update);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.05 });
+      observer.observe(heroSection);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    update();
+  }
+
   initProcessModals();
   initTestimonialCarousel();
   initBpoSpecialistsCarousel();
+  initHeroRadialParticles();
 };
 
 if (document.readyState === 'loading') {

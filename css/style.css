@@ -475,9 +475,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .brand-logo img,
 .brand-logo .header-logo-img {
-  height: 70px;
+  height: 52px;
   width: auto;
-  max-width: 100%;
+  max-width: 260px;
   object-fit: contain;
   display: block;
   transition: height 0.35s ease;
@@ -485,7 +485,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-header.scrolled .brand-logo img,
 .main-header.scrolled .brand-logo .header-logo-img {
-  height: 54px;
+  height: 44px;
 }
 
 .nav-menu {
@@ -577,6 +577,17 @@ h1, h2, h3, h4, h5, h6 {
   right: 5%;
   pointer-events: none;
   z-index: 1;
+}
+
+.hero-radial-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: block;
 }
 
 .hero-content {
@@ -1869,9 +1880,9 @@ select.form-control option {
 
 .footer-brand img,
 .footer-brand .footer-logo-img {
-  height: 68px;
+  height: 60px;
   width: auto;
-  max-width: 100%;
+  max-width: 280px;
   object-fit: contain;
   display: block;
   margin-bottom: 22px;
@@ -6674,6 +6685,23 @@ input.contact-page-form-card::placeholder {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
+}
+
+.step-box-badge-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.step-badge-etapa {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold-400);
+  opacity: 0.9;
 }
 
 .step-box-badge {
