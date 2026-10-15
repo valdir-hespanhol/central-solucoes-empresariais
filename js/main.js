@@ -1270,16 +1270,6 @@ const initCentralApp = () => {
       const cy = height * 0.5;
       const scaleFactor = Math.min(Math.max(width / 1200, 0.7), 1.25);
 
-      // Traçado sutil das órbitas radiais
-      ctx.lineWidth = 1;
-      for (let i = 0; i < ringRadiiBase.length; i++) {
-        const r = ringRadiiBase[i] * scaleFactor;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(218, 183, 141, 0.04)';
-        ctx.stroke();
-      }
-
       const spring = 0.04;
       const friction = 0.86;
       const repelDist = mouse.radius;
@@ -1317,30 +1307,6 @@ const initCentralApp = () => {
 
         p.x += p.vx;
         p.y += p.vy;
-      }
-
-      // Linhas geométricas de conexão entre partículas vizinhas na mesma órbita
-      ctx.lineWidth = 0.75;
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          if (Math.abs(p1.ringIndex - p2.ringIndex) > 1) continue;
-
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.hypot(dx, dy);
-          const maxLineDist = 58;
-
-          if (dist < maxLineDist) {
-            const alpha = (1 - dist / maxLineDist) * 0.16;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(218, 183, 141, ${alpha.toFixed(3)})`;
-            ctx.stroke();
-          }
-        }
       }
 
       // Renderiza as partículas
