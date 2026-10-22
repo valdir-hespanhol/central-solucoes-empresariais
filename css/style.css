@@ -6611,6 +6611,24 @@ input.contact-page-form-card::placeholder {
   scroll-margin-top: 100px;
 }
 
+.step-process-section-full {
+  background: linear-gradient(180deg, #100C0E 0%, #151821 35%, #0D0F14 100%);
+  width: 100%;
+  padding: 85px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(218, 183, 141, 0.16);
+  border-bottom: 1px solid rgba(218, 183, 141, 0.16);
+}
+
+.step-process-section-full .step-process-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+
 .step-process-wrapper {
   background: linear-gradient(145deg, #151821 0%, #0D0F14 100%);
   border: 1px solid rgba(218, 183, 141, 0.28);
