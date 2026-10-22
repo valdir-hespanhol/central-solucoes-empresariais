@@ -6842,29 +6842,40 @@ input.contact-page-form-card::placeholder {
 
 .step-process-footer {
   border-top: 1px solid rgba(218, 183, 141, 0.22);
-  padding-top: 32px;
+  padding-top: 36px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  gap: 22px;
+  margin-top: 16px;
+}
+
+.step-footer-text {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
 }
 
 .step-footer-text h4 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #FFFFFF;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  text-align: center;
 }
 
 .step-footer-text p {
   font-size: 0.98rem;
   color: #D1D5DB;
   margin-bottom: 0;
+  text-align: center;
 }
 
 .step-footer-actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -6879,10 +6890,6 @@ input.contact-page-form-card::placeholder {
   .step-cards-grid,
   .step-cards-grid.step-cards-grid-6 {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .step-process-footer {
-    flex-direction: column;
-    text-align: center;
   }
   .step-footer-actions {
     justify-content: center;
