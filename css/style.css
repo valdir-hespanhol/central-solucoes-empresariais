@@ -456,15 +456,15 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 96px;
-  gap: 24px;
+  justify-content: flex-start;
+  height: 104px;
+  gap: 36px;
   flex-wrap: nowrap;
   transition: height 0.35s ease;
 }
 
 .main-header.scrolled .navbar-inner {
-  height: 76px;
+  height: 80px;
 }
 
 .brand-logo {
@@ -475,9 +475,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .brand-logo img,
 .brand-logo .header-logo-img {
-  height: 68px;
+  height: 84px;
   width: auto;
-  max-width: 260px;
+  max-width: 280px;
   object-fit: contain;
   display: block;
   transition: height 0.35s ease;
@@ -485,15 +485,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-header.scrolled .brand-logo img,
 .main-header.scrolled .brand-logo .header-logo-img {
-  height: 54px;
+  height: 64px;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 2vw, 32px);
+  gap: clamp(16px, 1.8vw, 30px);
   white-space: nowrap !important;
   flex-wrap: nowrap !important;
+  margin-right: auto;
 }
 
 .nav-link {
@@ -2154,24 +2155,26 @@ select.form-control option {
     display: none;
   }
   .navbar-inner {
-    height: 76px;
+    height: 84px;
+    justify-content: space-between;
   }
   .brand-logo img,
   .brand-logo .header-logo-img {
-    height: 56px;
+    height: 68px;
   }
   .main-header.scrolled .navbar-inner {
-    height: 68px;
+    height: 72px;
   }
   .main-header.scrolled .brand-logo img,
   .main-header.scrolled .brand-logo .header-logo-img {
-    height: 48px;
+    height: 56px;
   }
   .nav-menu {
     position: fixed;
-    top: 76px;
+    top: 84px;
     left: 0;
     width: 100%;
+    margin-right: 0;
     background: rgba(18, 12, 14, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
