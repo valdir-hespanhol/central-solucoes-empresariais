@@ -1882,7 +1882,7 @@ select.form-control option {
 .footer-brand .footer-logo-img {
   height: 60px;
   width: auto;
-  max-width: 280px;
+  max-width: 300px;
   object-fit: contain;
   display: block;
   margin-bottom: 22px;
