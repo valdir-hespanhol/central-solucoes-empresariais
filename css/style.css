@@ -3566,14 +3566,15 @@ html.lenis, html.lenis body {
     gap: 30px;
   }
   .hero-bpo-brand-card {
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
+    margin-top: 10px;
   }
   .hero-agyle-logo-badge {
-    padding: 14px 20px;
+    padding: 0;
   }
   .hero-agyle-logo-img {
-    max-width: 180px;
+    max-width: 200px;
   }
   .bpo-intro-grid {
     grid-template-columns: 1fr;
