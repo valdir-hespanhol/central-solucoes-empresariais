@@ -3034,7 +3034,7 @@ html.lenis, html.lenis body {
   align-items: center;
   background-color: #071722;
   background-image: 
-    linear-gradient(135deg, rgba(5, 49, 88, 0.94) 0%, rgba(18, 12, 14, 0.88) 45%, rgba(1, 153, 143, 0.85) 100%),
+    linear-gradient(135deg, rgba(4, 26, 44, 0.96) 0%, rgba(14, 10, 12, 0.94) 50%, rgba(5, 36, 40, 0.92) 100%),
     url('../Hero 03 - BPO.jpg');
   background-size: cover;
   background-position: center;
@@ -3051,7 +3051,7 @@ html.lenis, html.lenis body {
   right: 10%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(1, 153, 143, 0.35) 0%, rgba(5, 49, 88, 0.2) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(1, 153, 143, 0.08) 0%, rgba(5, 49, 88, 0.06) 50%, transparent 70%);
   filter: blur(50px);
   pointer-events: none;
   z-index: 1;
@@ -3128,15 +3128,15 @@ html.lenis, html.lenis body {
 }
 
 .hero-agyle-logo-badge:hover {
-  transform: translateY(-6px) scale(1.04);
+  transform: translateY(-4px);
 }
 
 .hero-agyle-logo-img {
-  max-width: 250px;
+  max-width: 260px;
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9)) drop-shadow(0 12px 32px rgba(1, 153, 143, 0.55));
+  filter: none;
 }
 
 .hero-agyle-badge-tag {
