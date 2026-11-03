@@ -473,7 +473,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 88px;
   gap: clamp(12px, 1.5vw, 24px);
   flex-wrap: nowrap;
@@ -511,7 +511,7 @@ h1, h2, h3, h4, h5, h6 {
   gap: clamp(8px, 1.1vw, 18px);
   white-space: nowrap !important;
   flex-wrap: nowrap !important;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .nav-link {
@@ -2217,7 +2217,7 @@ select.form-control option {
     top: 84px;
     left: 0;
     width: 100%;
-    margin-right: 0;
+    margin: 0;
     background: rgba(18, 12, 14, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
