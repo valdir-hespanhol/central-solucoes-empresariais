@@ -321,6 +321,18 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
+.btn-outline-dark {
+  background: transparent;
+  color: var(--color-noir-900);
+  border: 1.5px solid var(--color-noir-900);
+}
+
+.btn-outline-dark:hover {
+  background: var(--color-noir-900);
+  color: var(--color-gold-400);
+  transform: translateY(-2px);
+}
+
 /* Botão Outline Dourado em Fundo Claro (Legibilidade Reforçada) */
 .specialties-section .btn-outline-gold,
 .contact-map-section .btn-outline-gold,
