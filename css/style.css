@@ -7109,3 +7109,115 @@ input.contact-page-form-card::placeholder {
     gap: 4px;
   }
 }
+
+
+/* ==========================================================================
+   BOTÃO ÁREA DO CLIENTE (PORTAL NIBO COM DESTAQUE EXCLUSIVO)
+   ========================================================================== */
+.btn-client-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(218, 183, 141, 0.18) 0%, rgba(20, 14, 18, 0.9) 100%);
+  color: #FFFFFF;
+  border: 1.5px solid var(--color-gold-400);
+  box-shadow: 0 0 16px rgba(218, 183, 141, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-client-portal svg {
+  color: var(--color-gold-400);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.btn-client-portal:hover {
+  background: var(--grad-gold);
+  color: var(--color-noir-900);
+  border-color: #FFFFFF;
+  box-shadow: 0 6px 24px rgba(218, 183, 141, 0.6), 0 0 20px rgba(218, 183, 141, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-client-portal:hover svg {
+  color: var(--color-noir-900);
+  transform: scale(1.15);
+}
+
+/* Item de Área do Cliente no menu gaveta mobile */
+.nav-link-client-drawer {
+  display: none;
+}
+
+@media (max-width: 1240px) {
+  .nav-menu {
+    gap: 16px;
+  }
+  .navbar-inner {
+    gap: 18px;
+  }
+  .brand-logo img,
+  .brand-logo .header-logo-img {
+    height: 70px;
+  }
+  .nav-actions {
+    gap: 10px;
+  }
+  .btn-client-portal {
+    padding: 7px 13px;
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+  .nav-actions .btn-sm {
+    padding: 7px 13px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-link-client-drawer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 20px;
+    background: var(--grad-gold);
+    color: var(--color-noir-900) !important;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-gold);
+    text-decoration: none;
+  }
+  .nav-link-client-drawer svg {
+    color: var(--color-noir-900);
+  }
+  .btn-client-portal {
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-client-portal span {
+    display: none;
+  }
+  .btn-client-portal {
+    padding: 9px;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+  }
+}
