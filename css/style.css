@@ -7225,214 +7225,132 @@ input.contact-page-form-card::placeholder {
 
 /* ==========================================================================
    PÁGINAS DEDICADAS DE ESPECIALIDADES (HOLDINGS, CONSTRUÇÃO & SAÚDE)
+   PADRÃO 100% UNIFICADO AO DESIGN SYSTEM CENTRAL (NOIR & GOLD, OUTFIT + JAKARTA)
    ========================================================================== */
-.page-hero-specialty {
-  position: relative;
-  padding: 170px 0 90px;
-  background: radial-gradient(circle at 50% 20%, rgba(30, 20, 25, 0.7) 0%, rgba(10, 6, 8, 1) 85%);
-  overflow: hidden;
-  border-bottom: 1px solid rgba(218, 183, 141, 0.15);
-}
 
-.hero-specialty-inner {
+/* Heros das Especialidades com Imagem de Fundo Setorial Fixa */
+.page-hero-holdings,
+.page-hero-construcao,
+.page-hero-saude {
+  position: relative;
+  min-height: 52vh;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 48px;
-}
-
-.hero-specialty-content {
-  flex: 1 1 560px;
-}
-
-.hero-specialty-image-card {
-  flex: 0 0 460px;
-  max-width: 100%;
-}
-
-.hero-specialty-img-frame {
-  position: relative;
-  border-radius: var(--radius-xl);
+  background-color: var(--color-noir-900);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 165px 0 85px;
+  color: var(--color-white);
   overflow: hidden;
-  border: 1px solid rgba(218, 183, 141, 0.35);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(218, 183, 141, 0.15);
-  aspect-ratio: 16 / 11;
-  background: #140d11;
 }
 
-.hero-specialty-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.page-hero-holdings {
+  background-image: var(--grad-hero-overlay), url('../Holdings.jpg');
 }
 
-.hero-specialty-image-card:hover .hero-specialty-img {
-  transform: scale(1.05);
+.page-hero-construcao {
+  background-image: var(--grad-hero-overlay), url('../construcao-novo.jpg');
 }
 
-.hero-specialty-img-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(16, 11, 14, 0.05) 0%, rgba(16, 11, 14, 0.5) 100%);
-  pointer-events: none;
+.page-hero-saude {
+  background-image: var(--grad-hero-overlay), url('../medica.jpg');
+  background-position: center 25%;
 }
 
-/* Grade de Módulos da Especialidade */
-.specialty-modules-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 28px;
-  margin-top: 40px;
+@media (max-width: 991px) {
+  .page-hero-holdings,
+  .page-hero-construcao,
+  .page-hero-saude {
+    padding: 130px 0 55px;
+    min-height: auto;
+    background-attachment: scroll;
+  }
 }
 
-.specialty-module-card {
-  background: linear-gradient(145deg, #181215 0%, #100b0e 100%);
-  border: 1px solid rgba(218, 183, 141, 0.22);
-  border-radius: var(--radius-xl);
-  padding: 34px 28px;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+/* Seção de Introdução e Visão Estratégica */
+.specialty-intro-section {
+  padding: 85px 0 50px;
+  background: var(--color-surface-light);
   position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
-.specialty-module-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(218, 183, 141, 0.55);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(218, 183, 141, 0.12);
+.specialty-intro-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+  padding: clamp(32px, 5vw, 56px);
+  box-shadow: var(--shadow-sm);
+  max-width: 980px;
+  margin: 0 auto;
 }
 
-.specialty-module-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-lg);
-  background: rgba(218, 183, 141, 0.12);
-  border: 1px solid rgba(218, 183, 141, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-gold-400);
+.specialty-intro-card p {
+  font-family: var(--font-body);
+  font-size: 1.06rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
   margin-bottom: 20px;
 }
 
-.specialty-module-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-white);
-  margin-bottom: 12px;
-}
-
-.specialty-module-card p {
-  color: var(--color-text-muted);
-  font-size: 0.94rem;
-  line-height: 1.65;
+.specialty-intro-card p:last-child {
   margin-bottom: 0;
 }
 
 /* Seção de Análise e Diferencial Estratégico */
-.specialty-strategic-section {
+.specialty-analysis-section {
   padding: 90px 0;
-  background: var(--color-noir-900);
-  position: relative;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
-.specialty-strategic-box {
-  background: linear-gradient(135deg, rgba(218, 183, 141, 0.08) 0%, rgba(16, 11, 14, 0.95) 100%);
-  border: 1px solid rgba(218, 183, 141, 0.3);
+.specialty-analysis-wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #181215 0%, #100C0E 100%);
+  border: 1px solid rgba(218, 183, 141, 0.28);
   border-radius: var(--radius-2xl);
-  padding: 50px 45px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
-}
-
-.specialty-strategic-box h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  padding: clamp(36px, 5vw, 54px);
   color: var(--color-white);
-  margin-bottom: 22px;
-}
-
-.specialty-strategic-box p {
-  color: #D1D5DB;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  margin-bottom: 18px;
-}
-
-.specialty-strategic-box p:last-child {
-  margin-bottom: 0;
-}
-
-/* Banner de CTA Final de Especialidade */
-.specialty-cta-banner {
-  padding: 80px 0 100px;
-  background: radial-gradient(circle at 50% 50%, rgba(35, 24, 28, 0.6) 0%, #0d080b 100%);
-}
-
-.specialty-cta-box {
-  background: linear-gradient(135deg, #1b1317 0%, #120c0f 100%);
-  border: 1.5px solid rgba(218, 183, 141, 0.4);
-  border-radius: var(--radius-2xl);
-  padding: 60px 48px;
-  text-align: center;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(218, 183, 141, 0.12);
+  box-shadow: var(--shadow-dark);
   position: relative;
   overflow: hidden;
 }
 
-.specialty-cta-box .section-badge {
-  margin-bottom: 18px;
+.specialty-analysis-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--grad-gold);
 }
 
-.specialty-cta-box h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 3.8vw, 2.8rem);
+.specialty-analysis-wrapper h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  font-weight: 700;
   color: var(--color-white);
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  line-height: 1.25;
 }
 
-.specialty-cta-box p {
-  color: #E5E7EB;
-  font-size: 1.1rem;
-  max-width: 780px;
-  margin: 0 auto 34px;
-  line-height: 1.7;
+.specialty-analysis-wrapper p {
+  font-family: var(--font-body);
+  color: var(--color-text-light-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 20px;
 }
 
-.specialty-cta-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
+.specialty-analysis-wrapper p:last-child {
+  margin-bottom: 0;
 }
 
-@media (max-width: 991px) {
-  .hero-specialty-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 36px;
-  }
-  .hero-specialty-content {
-    flex: 1 1 100%;
-  }
-  .hero-specialty-content .breadcrumb-nav,
-  .hero-specialty-content .hero-cta-group {
-    justify-content: center;
-  }
-  .hero-specialty-image-card {
-    flex: 1 1 100%;
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-  .specialty-strategic-box {
-    padding: 36px 24px;
-  }
-  .specialty-cta-box {
-    padding: 42px 24px;
-  }
+.specialty-analysis-wrapper strong {
+  color: var(--color-gold-400);
+  font-weight: 700;
 }
