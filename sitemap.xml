@@ -130,37 +130,37 @@
 
   <!-- Holdings & Planejamento Patrimonial -->
   <url>
-    <loc>https://soucentral.com.br/holdings.html</loc>
+    <loc>https://soucentral.com.br/holding-patrimonial</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://soucentral.com.br/Holdings.jpg</image:loc>
-      <image:title>Holdings e Planejamento Patrimonial e Societário</image:title>
+      <image:title>Holding Patrimonial e Planejamento Sucessório | Central</image:title>
     </image:image>
   </url>
 
   <!-- Incorporadoras & Construtoras -->
   <url>
-    <loc>https://soucentral.com.br/construcao-civil.html</loc>
+    <loc>https://soucentral.com.br/contabilidade-para-construtoras</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://soucentral.com.br/construcao-novo.jpg</image:loc>
-      <image:title>Gestão Contábil para Construção Civil e Incorporadoras</image:title>
+      <image:title>Gestão Contábil para Construtoras e Incorporadoras | Central</image:title>
     </image:image>
   </url>
 
   <!-- Saúde & Medicina -->
   <url>
-    <loc>https://soucentral.com.br/saude-medicina.html</loc>
+    <loc>https://soucentral.com.br/contabilidade-para-medicos</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://soucentral.com.br/medica.jpg</image:loc>
-      <image:title>Gestão Contábil para Médicos, Clínicas e Saúde</image:title>
+      <image:title>Gestão Contábil para Médicos e Clínicas | Central</image:title>
     </image:image>
   </url>
 </urlset>

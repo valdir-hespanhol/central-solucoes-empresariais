@@ -7354,3 +7354,141 @@ input.contact-page-form-card::placeholder {
   color: var(--color-gold-400);
   font-weight: 700;
 }
+
+
+/* ==========================================================================
+   DROPDOWN MENU: NOSSAS ESPECIALIDADES (PADRÃO NOIR & GOLD)
+   ========================================================================== */
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.nav-dropdown-toggle .dropdown-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+
+.nav-dropdown:hover .nav-dropdown-toggle .dropdown-chevron,
+.nav-dropdown.open .nav-dropdown-toggle .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(14px);
+  background: rgba(18, 12, 14, 0.97);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(218, 183, 141, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 10px;
+  min-width: 330px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(218, 183, 141, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease;
+  z-index: 1010;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(6px);
+}
+
+.nav-dropdown-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-dropdown-item:hover {
+  background: rgba(218, 183, 141, 0.12);
+  transform: translateX(3px);
+}
+
+.nav-dropdown-item-title {
+  font-family: var(--font-heading);
+  font-size: 0.885rem;
+  font-weight: 700;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.nav-dropdown-item-title svg {
+  color: var(--color-gold-400);
+  flex-shrink: 0;
+}
+
+.nav-dropdown-item:hover .nav-dropdown-item-title {
+  color: var(--color-gold-400);
+}
+
+.nav-dropdown-item-desc {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  color: var(--color-text-light-muted);
+  line-height: 1.35;
+  white-space: normal;
+  padding-left: 23px;
+}
+
+@media (max-width: 991px) {
+  .nav-dropdown {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+  .nav-dropdown-menu {
+    position: static;
+    transform: none !important;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(218, 183, 141, 0.15);
+    border-radius: var(--radius-md);
+    padding: 8px;
+    width: 100%;
+    min-width: 100%;
+    margin-top: 8px;
+    box-shadow: none;
+  }
+  .nav-dropdown.open .nav-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-dropdown-item {
+    padding: 8px 10px;
+  }
+}

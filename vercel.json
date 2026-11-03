@@ -1,0 +1,36 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/holdings",
+      "destination": "/holding-patrimonial",
+      "permanent": true
+    },
+    {
+      "source": "/holdings.html",
+      "destination": "/holding-patrimonial",
+      "permanent": true
+    },
+    {
+      "source": "/construcao-civil",
+      "destination": "/contabilidade-para-construtoras",
+      "permanent": true
+    },
+    {
+      "source": "/construcao-civil.html",
+      "destination": "/contabilidade-para-construtoras",
+      "permanent": true
+    },
+    {
+      "source": "/saude-medicina",
+      "destination": "/contabilidade-para-medicos",
+      "permanent": true
+    },
+    {
+      "source": "/saude-medicina.html",
+      "destination": "/contabilidade-para-medicos",
+      "permanent": true
+    }
+  ]
+}

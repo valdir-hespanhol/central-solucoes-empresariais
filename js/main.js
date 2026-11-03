@@ -81,6 +81,22 @@ const initCentralApp = () => {
       }
     });
 
+  // Dropdown toggle on mobile (Nossas Especialidades)
+  const navDropdowns = document.querySelectorAll('.nav-dropdown');
+  navDropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', (e) => {
+        if (window.innerWidth <= 991) {
+          e.preventDefault();
+          dropdown.classList.toggle('open');
+          const isOpen = dropdown.classList.contains('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        }
+      });
+    }
+  });
+
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
