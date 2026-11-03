@@ -2042,6 +2042,27 @@ select.form-control option {
   display: inline-block;
   line-height: 1.55;
 }
+/* Fallback caso seja utilizado footer-contact-info */
+.footer-contact-info p {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+  font-size: 0.925rem;
+  line-height: 1.55;
+  color: var(--color-text-light-muted);
+}
+
+.footer-contact-info p svg {
+  width: 18px !important;
+  height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  color: var(--color-gold-400);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
 
 .footer-bottom {
   padding-top: 30px;
