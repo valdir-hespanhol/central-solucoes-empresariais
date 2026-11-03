@@ -465,18 +465,23 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
+.main-header .navbar-inner,
+.main-header .top-bar-inner {
+  max-width: 1380px;
+}
+
 .navbar-inner {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 104px;
-  gap: 36px;
+  height: 88px;
+  gap: clamp(12px, 1.5vw, 24px);
   flex-wrap: nowrap;
   transition: height 0.35s ease;
 }
 
 .main-header.scrolled .navbar-inner {
-  height: 80px;
+  height: 72px;
 }
 
 .brand-logo {
@@ -487,9 +492,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .brand-logo img,
 .brand-logo .header-logo-img {
-  height: 84px;
+  height: clamp(52px, 4vw, 64px);
   width: auto;
-  max-width: 280px;
+  max-width: 210px;
   object-fit: contain;
   display: block;
   transition: height 0.35s ease;
@@ -497,13 +502,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-header.scrolled .brand-logo img,
 .main-header.scrolled .brand-logo .header-logo-img {
-  height: 64px;
+  height: 48px;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 1.8vw, 30px);
+  gap: clamp(8px, 1.1vw, 18px);
   white-space: nowrap !important;
   flex-wrap: nowrap !important;
   margin-right: auto;
@@ -511,13 +516,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-link {
   color: var(--color-text-light);
-  font-size: 0.935rem;
+  font-size: clamp(0.8125rem, 0.86vw, 0.865rem);
   font-weight: 500;
   padding: 6px 0;
   position: relative;
   white-space: nowrap !important;
   flex-shrink: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
 }
 
 .nav-link::after {
@@ -544,9 +549,14 @@ h1, h2, h3, h4, h5, h6 {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: clamp(8px, 0.9vw, 12px);
   flex-shrink: 0;
   white-space: nowrap !important;
+}
+
+.nav-actions .btn-sm {
+  padding: 6px clamp(10px, 1vw, 15px);
+  font-size: clamp(0.785rem, 0.82vw, 0.835rem);
 }
 
 .mobile-toggle {
@@ -2183,7 +2193,7 @@ select.form-control option {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1024px) {
   .top-bar {
     display: none;
   }
@@ -7138,10 +7148,10 @@ input.contact-page-form-card::placeholder {
 .btn-client-portal {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
+  gap: 6px;
+  padding: 6px clamp(10px, 1vw, 14px);
   border-radius: var(--radius-md);
-  font-size: 0.86rem;
+  font-size: clamp(0.785rem, 0.82vw, 0.835rem);
   font-weight: 700;
   text-decoration: none;
   background: linear-gradient(135deg, rgba(218, 183, 141, 0.18) 0%, rgba(20, 14, 18, 0.9) 100%);
@@ -7182,26 +7192,30 @@ input.contact-page-form-card::placeholder {
 
 @media (max-width: 1240px) {
   .nav-menu {
-    gap: 16px;
+    gap: clamp(6px, 0.9vw, 12px);
+  }
+  .nav-link {
+    font-size: 0.8125rem;
   }
   .navbar-inner {
-    gap: 18px;
+    gap: 14px;
   }
   .brand-logo img,
   .brand-logo .header-logo-img {
-    height: 70px;
+    height: 54px;
+    max-width: 180px;
   }
   .nav-actions {
-    gap: 10px;
+    gap: 8px;
   }
   .btn-client-portal {
-    padding: 7px 13px;
-    font-size: 0.82rem;
-    gap: 6px;
+    padding: 6px 11px;
+    font-size: 0.78rem;
+    gap: 5px;
   }
   .nav-actions .btn-sm {
-    padding: 7px 13px;
-    font-size: 0.82rem;
+    padding: 6px 11px;
+    font-size: 0.78rem;
   }
 }
 
@@ -7477,7 +7491,7 @@ input.contact-page-form-card::placeholder {
   padding-left: 23px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1024px) {
   .nav-dropdown {
     width: 100%;
     flex-direction: column;

@@ -87,7 +87,7 @@ const initCentralApp = () => {
     const toggle = dropdown.querySelector('.nav-dropdown-toggle');
     if (toggle) {
       toggle.addEventListener('click', (e) => {
-        if (window.innerWidth <= 991) {
+        if (window.innerWidth <= 1024) {
           e.preventDefault();
           dropdown.classList.toggle('open');
           const isOpen = dropdown.classList.contains('open');
