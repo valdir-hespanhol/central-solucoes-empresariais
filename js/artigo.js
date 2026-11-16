@@ -5,17 +5,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let allPosts = [];
   try {
-    const localData = localStorage.getItem('central_blog_posts');
-    if (localData) {
-      allPosts = JSON.parse(localData);
-    } else {
-      const response = await fetch('data/posts.json');
-      if (response.ok) {
-        allPosts = await response.json();
-      }
+    const apiResponse = await fetch('/api/posts', { cache: 'no-store' });
+    if (apiResponse.ok) {
+      allPosts = await apiResponse.json();
+      localStorage.setItem('central_blog_posts', JSON.stringify(allPosts));
     }
   } catch (e) {
     console.error('Erro ao carregar dados do artigo:', e);
+  }
+
+  if (!allPosts.length) {
+    try {
+      const localData = localStorage.getItem('central_blog_posts');
+      if (localData) {
+        allPosts = JSON.parse(localData);
+      } else {
+        const response = await fetch('data/posts.json');
+        if (response.ok) allPosts = await response.json();
+      }
+    } catch (e) {
+      console.error('Erro ao carregar fallback local do artigo:', e);
+    }
   }
 
   // Encontra o post pelo slug ou ID
@@ -170,3 +180,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     `).join('');
   }
 });
+
