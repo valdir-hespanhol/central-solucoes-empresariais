@@ -8,7 +8,7 @@ Portal corporativo moderno, responsivo e de alta performance desenvolvido para a
 
 - **Frontend:** HTML5 Semântico, CSS3 Moderno (Design System Noir & Champanhe Gold, Flexbox, CSS Grid, Glassmorphism), JavaScript Vanilla (ES6+).
 - **Editor Visual CMS:** Quill.js WYSIWYG para edição de artigos sem necessidade de código.
-- **Backend / APIs:** Funções serverless da Vercel para autenticação por sessão HttpOnly e sincronização de posts/categorias com o repositório GitHub privado. Os arquivos JSON continuam como fallback local.
+- **Backend / APIs:** Funções serverless da Vercel para autenticação por sessão HttpOnly e sincronização de posts/categorias com Vercel Blob privado. Os arquivos JSON continuam como fallback local.
 - **Servidor & Segurança:** Apache / LiteSpeed com WAF (.htaccess), Headers de Segurança HTTP e regras anti-scraping/bots.
 
 ---
@@ -70,11 +70,9 @@ Configure estas variáveis em **Project Settings → Environment Variables**. El
 
 - `ADMIN_PASSWORD`: senha escolhida para o painel administrativo.
 - `ADMIN_SESSION_SECRET`: segredo aleatório usado para assinar a sessão do administrador.
-- `GITHUB_TOKEN`: token fine-grained com acesso somente de leitura e escrita ao conteúdo deste repositório privado.
-- `GITHUB_REPOSITORY`: `valdir-hespanhol/central-solucoes-empresariais`.
-- `GITHUB_BRANCH`: `main`.
+- `BLOB_READ_WRITE_TOKEN`: criado automaticamente ao conectar o Blob Store ao projeto.
 
-O painel grava `data/posts.json` e `data/categories.json` usando a API do GitHub; cada publicação gera um commit no repositório e a Vercel atualiza o site pela integração já existente.
+O painel grava `blog/posts.json` e `blog/categories.json` no Vercel Blob; as alterações entram em vigor sem gerar commit ou novo deploy do site.
 
 ---
 
