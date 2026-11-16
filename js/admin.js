@@ -4,9 +4,6 @@ let categories = [];
 let quillEditor = null;
 let currentEditingId = null;
 
-// Senha padrão de acesso e token de segurança da API
-const ADMIN_PASS = 'central2026';
-const ADMIN_API_TOKEN = 'c38944657_central_sec_token_2026';
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCKOUT_TIME_MS = 15 * 60 * 1000; // 15 minutos
 
@@ -27,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
 });
 
-// Autenticação com proteção contra bots e força bruta
-function initAuth() {
+// Autenticação server-side com sessão HttpOnly
+async function initAuth() {
   const loginOverlay = document.getElementById('adminLoginWrap');
   const dashboardWrap = document.getElementById('adminDashboardWrap');
   const loginForm = document.getElementById('adminLoginForm');
@@ -56,7 +53,17 @@ function initAuth() {
     }
   }
 
-  const isAuth = sessionStorage.getItem('central_admin_auth') === 'true';
+  let isAuth = false;
+  try {
+    const sessionResponse = await fetch('/api/auth/session', {
+      credentials: 'same-origin',
+      headers: { 'Accept': 'application/json' },
+      cache: 'no-store'
+    });
+    isAuth = sessionResponse.ok;
+  } catch (error) {
+    isAuth = false;
+  }
 
   if (isAuth) {
     loginOverlay.style.display = 'none';
@@ -68,7 +75,7 @@ function initAuth() {
   }
 
   if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       if (checkLockout()) return;
@@ -84,38 +91,62 @@ function initAuth() {
       }
 
       const passInput = document.getElementById('adminPassword').value;
-      if (passInput === ADMIN_PASS) {
-        // Sucesso: reseta tentativas e bloqueios
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ password: passInput })
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.message || 'Não foi possível autenticar.');
+
+        // Sucesso: reseta tentativas e bloqueios; a sessão fica no cookie HttpOnly
         localStorage.removeItem('central_admin_attempts');
         localStorage.removeItem('central_admin_lockuntil');
         sessionStorage.setItem('central_admin_auth', 'true');
         loginOverlay.style.display = 'none';
         dashboardWrap.style.display = 'flex';
         renderAdminDashboard();
-      } else {
-        let attempts = parseInt(localStorage.getItem('central_admin_attempts') || '0', 10) + 1;
-        localStorage.setItem('central_admin_attempts', attempts.toString());
+      } catch (error) {
+        if (error.message === 'Senha incorreta.') {
+          let attempts = parseInt(localStorage.getItem('central_admin_attempts') || '0', 10) + 1;
+          localStorage.setItem('central_admin_attempts', attempts.toString());
 
-        if (attempts >= MAX_LOGIN_ATTEMPTS) {
-          const lockTime = Date.now() + LOCKOUT_TIME_MS;
-          localStorage.setItem('central_admin_lockuntil', lockTime.toString());
-          checkLockout();
+          if (attempts >= MAX_LOGIN_ATTEMPTS) {
+            const lockTime = Date.now() + LOCKOUT_TIME_MS;
+            localStorage.setItem('central_admin_lockuntil', lockTime.toString());
+            checkLockout();
+          } else {
+            const remaining = MAX_LOGIN_ATTEMPTS - attempts;
+            if (alertBox) {
+              alertBox.textContent = `Senha incorreta! Você tem mais ${remaining} tentativa(s) antes do bloqueio temporário.`;
+              alertBox.style.display = 'block';
+            } else {
+              alert(`Senha incorreta! ${remaining} tentativa(s) restantes.`);
+            }
+          }
         } else {
-          const remaining = MAX_LOGIN_ATTEMPTS - attempts;
           if (alertBox) {
-            alertBox.textContent = `Senha incorreta! Você tem mais ${remaining} tentativa(s) antes do bloqueio temporário.`;
+            alertBox.textContent = error.message;
             alertBox.style.display = 'block';
           } else {
-            alert(`Senha incorreta! ${remaining} tentativa(s) restantes.`);
+            alert(error.message);
           }
         }
+      } finally {
+        if (!checkLockout()) submitBtn.disabled = false;
       }
     });
   }
 
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', (e) => {
+    logoutBtn.addEventListener('click', async (e) => {
       e.preventDefault();
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
       sessionStorage.removeItem('central_admin_auth');
       window.location.reload();
     });
@@ -146,37 +177,49 @@ function initQuill() {
 // Carregar posts e categorias
 async function loadData() {
   // Carrega categorias
-  const localCats = localStorage.getItem('central_blog_categories');
-  if (localCats) {
-    categories = JSON.parse(localCats);
-  } else {
-    try {
-      const res = await fetch('data/categories.json');
-      if (res.ok) {
-        categories = await res.json();
-      } else {
+  try {
+    const response = await fetch('/api/categories', { cache: 'no-store' });
+    if (response.ok) categories = await response.json();
+  } catch (error) {}
+
+  if (!categories.length) {
+    const localCats = localStorage.getItem('central_blog_categories');
+    if (localCats) {
+      categories = JSON.parse(localCats);
+    } else {
+      try {
+        const res = await fetch('data/categories.json');
+        if (res.ok) {
+          categories = await res.json();
+        } else {
+          categories = DEFAULT_CATEGORIES;
+        }
+      } catch (e) {
         categories = DEFAULT_CATEGORIES;
       }
-    } catch (e) {
-      categories = DEFAULT_CATEGORIES;
     }
     localStorage.setItem('central_blog_categories', JSON.stringify(categories));
   }
 
   // Carrega posts
-  const localData = localStorage.getItem('central_blog_posts');
-  if (localData) {
-    posts = JSON.parse(localData);
-  } else {
-    try {
-      const res = await fetch('data/posts.json');
-      if (res.ok) {
-        posts = await res.json();
-        localStorage.setItem('central_blog_posts', JSON.stringify(posts));
+  try {
+    const response = await fetch('/api/posts', { cache: 'no-store' });
+    if (response.ok) posts = await response.json();
+  } catch (error) {}
+
+  if (!posts.length) {
+    const localData = localStorage.getItem('central_blog_posts');
+    if (localData) {
+      posts = JSON.parse(localData);
+    } else {
+      try {
+        const res = await fetch('data/posts.json');
+        if (res.ok) posts = await res.json();
+      } catch (e) {
+        console.warn('Erro ao carregar data/posts.json:', e);
       }
-    } catch (e) {
-      console.warn('Erro ao carregar data/posts.json:', e);
     }
+    localStorage.setItem('central_blog_posts', JSON.stringify(posts));
   }
 
   populateCategoryDropdowns();
@@ -494,20 +537,22 @@ function deleteCategory(id) {
   populateCategoryDropdowns();
 }
 
-function saveCategories() {
+async function saveCategories() {
   localStorage.setItem('central_blog_categories', JSON.stringify(categories));
-  // Sincroniza com api/categories.php de forma autenticada
+  // Sincroniza com a API serverless usando a sessão HttpOnly
   try {
-    fetch('api/categories.php', {
+    const response = await fetch('/api/categories', {
       method: 'POST',
+      credentials: 'same-origin',
       headers: {
-        'Content-Type': 'application/json',
-        'X-Admin-Auth': ADMIN_API_TOKEN,
-        'X-Requested-With': 'XMLHttpRequest'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(categories)
     });
-  } catch (e) {}
+    return response.ok;
+  } catch (e) {
+    return false;
+  }
 }
 
 function generateSlug(text) {
@@ -569,7 +614,7 @@ function closePostModal() {
   document.getElementById('adminPostModal').style.display = 'none';
 }
 
-function savePost() {
+async function savePost() {
   const title = document.getElementById('postTitleInput').value.trim();
   const slug = document.getElementById('postSlugInput').value.trim() || generateSlug(title);
   const category = document.getElementById('postCategorySelect').value;
@@ -625,9 +670,11 @@ function savePost() {
   }
 
   localStorage.setItem('central_blog_posts', JSON.stringify(posts));
-  syncWithServer();
+  const synced = await syncWithServer();
 
-  alert('Artigo salvo com sucesso!');
+  alert(synced
+    ? 'Artigo salvo com sucesso!'
+    : 'Artigo salvo apenas neste navegador. Configure a API da Vercel para sincronizar com o site.');
   closePostModal();
   renderAdminDashboard();
 }
@@ -664,14 +711,17 @@ function exportData() {
 
 async function syncWithServer() {
   try {
-    await fetch('api/posts.php', {
+    const response = await fetch('/api/posts', {
       method: 'POST',
+      credentials: 'same-origin',
       headers: {
-        'Content-Type': 'application/json',
-        'X-Admin-Auth': ADMIN_API_TOKEN,
-        'X-Requested-With': 'XMLHttpRequest'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(posts)
     });
-  } catch (e) {}
+    return response.ok;
+  } catch (e) {
+    return false;
+  }
 }
+
