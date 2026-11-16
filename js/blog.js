@@ -14,22 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const catFromUrl = urlParams.get('categoria') || urlParams.get('cat');
 
-  // Carrega posts e categorias do localStorage ou de data/
+  // Carrega posts e categorias da API serverless, com fallback local
   async function loadData() {
     // 1. Carrega categorias
     try {
-      const localCats = localStorage.getItem('central_blog_categories');
-      if (localCats) {
-        allCategories = JSON.parse(localCats);
-      } else {
-        const catRes = await fetch('data/categories.json');
-        if (catRes.ok) {
-          allCategories = await catRes.json();
-          localStorage.setItem('central_blog_categories', JSON.stringify(allCategories));
-        }
+      const apiCats = await fetch('/api/categories', { cache: 'no-store' });
+      if (apiCats.ok) {
+        allCategories = await apiCats.json();
+        localStorage.setItem('central_blog_categories', JSON.stringify(allCategories));
       }
     } catch (e) {
       console.warn('Fallback para categorias padrão:', e);
+    }
+
+    if (!allCategories.length) {
+      try {
+        const localCats = localStorage.getItem('central_blog_categories');
+        if (localCats) allCategories = JSON.parse(localCats);
+        else {
+          const catRes = await fetch('data/categories.json');
+          if (catRes.ok) allCategories = await catRes.json();
+        }
+      } catch (e) {}
     }
 
     if (!allCategories || allCategories.length === 0) {
@@ -45,20 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Carrega posts
     try {
-      const localData = localStorage.getItem('central_blog_posts');
-      if (localData) {
-        allPosts = JSON.parse(localData);
-      } else {
-        const response = await fetch('data/posts.json');
-        if (response.ok) {
-          allPosts = await response.json();
-          localStorage.setItem('central_blog_posts', JSON.stringify(allPosts));
-        }
+      const apiPosts = await fetch('/api/posts', { cache: 'no-store' });
+      if (apiPosts.ok) {
+        allPosts = await apiPosts.json();
+        localStorage.setItem('central_blog_posts', JSON.stringify(allPosts));
       }
     } catch (e) {
       console.warn('Erro ao carregar posts.json:', e);
-      const localData = localStorage.getItem('central_blog_posts');
-      if (localData) allPosts = JSON.parse(localData);
+    }
+
+    if (!allPosts.length) {
+      try {
+        const localData = localStorage.getItem('central_blog_posts');
+        if (localData) allPosts = JSON.parse(localData);
+        else {
+          const response = await fetch('data/posts.json');
+          if (response.ok) allPosts = await response.json();
+        }
+      } catch (e) {
+        console.warn('Fallback para posts locais:', e);
+      }
     }
 
     // Se tiver categoria na URL, ativa ela
@@ -217,3 +229,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadData();
 });
+
