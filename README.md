@@ -8,7 +8,7 @@ Portal corporativo moderno, responsivo e de alta performance desenvolvido para a
 
 - **Frontend:** HTML5 Semântico, CSS3 Moderno (Design System Noir & Champanhe Gold, Flexbox, CSS Grid, Glassmorphism), JavaScript Vanilla (ES6+).
 - **Editor Visual CMS:** Quill.js WYSIWYG para edição de artigos sem necessidade de código.
-- **Backend / APIs:** PHP para sincronização de posts (`api/posts.php`) e categorias (`api/categories.php`) com persistência em JSON (`data/posts.json`, `data/categories.json`) e fallback automático em `localStorage`.
+- **Backend / APIs:** Funções serverless da Vercel para autenticação por sessão HttpOnly e sincronização de posts/categorias com o repositório GitHub privado. Os arquivos JSON continuam como fallback local.
 - **Servidor & Segurança:** Apache / LiteSpeed com WAF (.htaccess), Headers de Segurança HTTP e regras anti-scraping/bots.
 
 ---
@@ -30,7 +30,7 @@ Portal corporativo moderno, responsivo e de alta performance desenvolvido para a
 
 3. **Sistema de Blog & Painel Administrativo CMS:**
    - **Blog Público (`blog.html` & `artigo.html`):** Filtros dinâmicos por categoria, busca em tempo real, cálculo de tempo de leitura e botões de compartilhamento direto para WhatsApp e LinkedIn.
-   - **Painel Administrativo (`admin.html`):** Login seguro, dashboard com contadores, gerenciamento de categorias em tempo real, criação/edição com upload de imagem e geração de backup JSON em 1 clique.
+   - **Painel Administrativo (`admin.html`):** Login server-side com sessão HttpOnly, dashboard com contadores, gerenciamento de categorias em tempo real, criação/edição com upload de imagem e geração de backup JSON em 1 clique.
    - A senha de acesso ao Admin não é publicada na documentação.
 
 4. **Conformidade LGPD & Privacidade:**
@@ -59,19 +59,33 @@ python -m http.server 8080
 ```
 Acesse [http://localhost:8080/](http://localhost:8080/) no seu navegador.
 
-### Opção 2: Usando PHP (Habilita APIs locais)
+### Opção 2: Usando PHP
 ```bash
 php -S localhost:8080
 ```
+
+### Configuração obrigatória na Vercel
+
+Configure estas variáveis em **Project Settings → Environment Variables**. Elas nunca devem ser colocadas no HTML, JavaScript ou GitHub:
+
+- `ADMIN_PASSWORD`: senha escolhida para o painel administrativo.
+- `ADMIN_SESSION_SECRET`: segredo aleatório usado para assinar a sessão do administrador.
+- `GITHUB_TOKEN`: token fine-grained com acesso somente de leitura e escrita ao conteúdo deste repositório privado.
+- `GITHUB_REPOSITORY`: `valdir-hespanhol/central-solucoes-empresariais`.
+- `GITHUB_BRANCH`: `main`.
+
+O painel grava `data/posts.json` e `data/categories.json` usando a API do GitHub; cada publicação gera um commit no repositório e a Vercel atualiza o site pela integração já existente.
 
 ---
 
 ## 📁 Estrutura de Diretórios
 
 ```
-├── api/                   # Endpoints PHP para persistência de dados
-│   ├── categories.php     # API de gestão de categorias
-│   └── posts.php          # API de gestão de artigos
+├── api/                   # Funções serverless da Vercel
+│   ├── auth/              # Login, sessão e logout
+│   ├── categories.js      # API de gestão de categorias
+│   └── posts.js           # API de gestão de artigos
+├── lib/                   # Helpers server-side de autenticação e GitHub
 ├── css/                   # Estilos
 │   └── style.css          # Design System e folhas de estilo do portal
 ├── data/                  # Base de dados em JSON
