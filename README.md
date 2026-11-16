@@ -31,7 +31,7 @@ Portal corporativo moderno, responsivo e de alta performance desenvolvido para a
 3. **Sistema de Blog & Painel Administrativo CMS:**
    - **Blog Público (`blog.html` & `artigo.html`):** Filtros dinâmicos por categoria, busca em tempo real, cálculo de tempo de leitura e botões de compartilhamento direto para WhatsApp e LinkedIn.
    - **Painel Administrativo (`admin.html`):** Login seguro, dashboard com contadores, gerenciamento de categorias em tempo real, criação/edição com upload de imagem e geração de backup JSON em 1 clique.
-   - *Senha padrão de acesso ao Admin:* `central2026`
+   - A senha de acesso ao Admin não é publicada na documentação.
 
 4. **Conformidade LGPD & Privacidade:**
    - Banner flutuante de consentimento de cookies com design não intrusivo.
@@ -106,3 +106,4 @@ php -S localhost:8080
 
 &copy; 2026 Central Soluções Empresariais. Todos os direitos reservados.
 Desenvolvido com excelência técnica e foco em resultados.
+
