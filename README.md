@@ -8,7 +8,7 @@ Portal corporativo moderno, responsivo e de alta performance desenvolvido para a
 
 - **Frontend:** HTML5 Semântico, CSS3 Moderno (Design System Noir & Champanhe Gold, Flexbox, CSS Grid, Glassmorphism), JavaScript Vanilla (ES6+).
 - **Editor Visual CMS:** Quill.js WYSIWYG para edição de artigos sem necessidade de código.
-- **Backend / APIs:** PHP para sincronização de posts (`api/posts.php`) e categorias (`api/categories.php`) com persistência em JSON (`data/posts.json`, `data/categories.json`) e fallback automático em `localStorage`.
+- **Backend / APIs:** Funções serverless da Vercel para autenticação por sessão HttpOnly e sincronização de posts/categorias com Vercel Blob privado. Os arquivos JSON continuam como fallback local.
 - **Servidor & Segurança:** Apache / LiteSpeed com WAF (.htaccess), Headers de Segurança HTTP e regras anti-scraping/bots.
 
 ---
@@ -30,8 +30,8 @@ Portal corporativo moderno, responsivo e de alta performance desenvolvido para a
 
 3. **Sistema de Blog & Painel Administrativo CMS:**
    - **Blog Público (`blog.html` & `artigo.html`):** Filtros dinâmicos por categoria, busca em tempo real, cálculo de tempo de leitura e botões de compartilhamento direto para WhatsApp e LinkedIn.
-   - **Painel Administrativo (`admin.html`):** Login seguro, dashboard com contadores, gerenciamento de categorias em tempo real, criação/edição com upload de imagem e geração de backup JSON em 1 clique.
-   - *Senha padrão de acesso ao Admin:* `central2026`
+   - **Painel Administrativo (`admin.html`):** Login server-side com sessão HttpOnly, dashboard com contadores, gerenciamento de categorias em tempo real, criação/edição com upload de imagem e geração de backup JSON em 1 clique.
+   - A senha de acesso ao Admin não é publicada na documentação.
 
 4. **Conformidade LGPD & Privacidade:**
    - Banner flutuante de consentimento de cookies com design não intrusivo.
@@ -59,19 +59,31 @@ python -m http.server 8080
 ```
 Acesse [http://localhost:8080/](http://localhost:8080/) no seu navegador.
 
-### Opção 2: Usando PHP (Habilita APIs locais)
+### Opção 2: Usando PHP
 ```bash
 php -S localhost:8080
 ```
+
+### Configuração obrigatória na Vercel
+
+Configure estas variáveis em **Project Settings → Environment Variables**. Elas nunca devem ser colocadas no HTML, JavaScript ou GitHub:
+
+- `ADMIN_PASSWORD`: senha escolhida para o painel administrativo.
+- `ADMIN_SESSION_SECRET`: segredo aleatório usado para assinar a sessão do administrador.
+- `BLOB_READ_WRITE_TOKEN`: criado automaticamente ao conectar o Blob Store ao projeto.
+
+O painel grava `blog/posts.json` e `blog/categories.json` no Vercel Blob; as alterações entram em vigor sem gerar commit ou novo deploy do site.
 
 ---
 
 ## 📁 Estrutura de Diretórios
 
 ```
-├── api/                   # Endpoints PHP para persistência de dados
-│   ├── categories.php     # API de gestão de categorias
-│   └── posts.php          # API de gestão de artigos
+├── api/                   # Funções serverless da Vercel
+│   ├── auth/              # Login, sessão e logout
+│   ├── categories.js      # API de gestão de categorias
+│   └── posts.js           # API de gestão de artigos
+├── lib/                   # Helpers server-side de autenticação e GitHub
 ├── css/                   # Estilos
 │   └── style.css          # Design System e folhas de estilo do portal
 ├── data/                  # Base de dados em JSON
@@ -106,3 +118,4 @@ php -S localhost:8080
 
 &copy; 2026 Central Soluções Empresariais. Todos os direitos reservados.
 Desenvolvido com excelência técnica e foco em resultados.
+
